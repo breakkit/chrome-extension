@@ -1822,7 +1822,7 @@ function MultiLegTable(rNo) {
       buf.append(this.generateTableQ24());
 
     buf.append('</table>');
-    //alert(qColorInd);
+    alert(qColorInd);
 
     return buf.toString();
   }
