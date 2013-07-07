@@ -743,7 +743,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 combTable[pool].qOdds[x][y] = tmpStr[1];
                 combTable[pool].qColorInd[x][y] = tmpStr[2];
                 combTable[pool].haveOdds = true;
-                alert(tmpStr[2]);
+                alert(typeof(tmpStr[2]));
             }
         }
     }
