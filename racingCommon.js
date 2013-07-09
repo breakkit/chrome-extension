@@ -600,7 +600,7 @@ function combOddsRefresh(xml, pool) {
             investmentRefresh(pool, tmpOdds);
 		setRacingTableObj1(combTable[pool]);
         combTable[pool].setTableToDiv();
-        alert(tmpOdds);
+        //alert(tmpOdds);
     }
 }
 
