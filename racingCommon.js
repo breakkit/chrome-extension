@@ -752,22 +752,22 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             minOdds[b] = 10000000;
         }
 
-        // for (var a = 0; a < 5; a++) {
-        //     for (var i = 0; i < combTable[pool].qOdds.length; i++) {
-        //         for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
-        //             if(count > 0){
-        //                 if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool],qOdds[i][j] >= minOdds[count - 1]){
-        //                     minOdds[count] = combTable[pool].qOdds[i][j];
-        //                 }
-        //             }
-        //             else if(combTable[pool].qOdds[i][j] <= minOdds[count]){
-        //                 minOdds[count] = combTable[pool].qOdds[i][j];
-        //             }
-        //         }
-        //     }
-        //     debugger;
-        //     count++;
-        // }
+        for (var a = 0; a < 5; a++) {
+            for (var i = 0; i < combTable[pool].qOdds.length; i++) {
+                for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
+                    if(count > 0){
+                        if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool],qOdds[i][j] >= minOdds[count - 1]){
+                            minOdds[count] = combTable[pool].qOdds[i][j];
+                        }
+                    }
+                    else if(combTable[pool].qOdds[i][j] <= minOdds[count]){
+                        minOdds[count] = combTable[pool].qOdds[i][j];
+                    }
+                }
+            }
+            debugger;
+            count++;
+        }
         console.log("Minimun odds is" + minOdds);
     }
 }
