@@ -729,8 +729,6 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
-        var minOdds = new Array();
-        minOdds[0] = 10000000;
         var nodes = tmpOdds[1].split(';');
         if (nodes.length <= 1)
             combTable[pool].clearTable();
@@ -747,6 +745,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 combTable[pool].haveOdds = true;
             }
         }
+        var minOdds = new Array();
         var count = 0;
         for(var b = 0; b < 5; b++){
             minOdds[b] = 10000000;
