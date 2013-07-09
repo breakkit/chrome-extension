@@ -747,7 +747,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 combTable[pool].haveOdds = true;
             }
         }
-        var count = 0
+        /*var count = 0
         for(var b = 0; b < 5; b++){
             minOdds[b] = 10000000;
         }
@@ -767,7 +767,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             }
             count++;
         }
-        alert(minOdds);
+        alert(minOdds);*/
     }
 }
 
