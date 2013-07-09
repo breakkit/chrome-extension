@@ -729,6 +729,8 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
+        var minOdds = new Array();
+        minOdds[0] = 10000000;
         var nodes = tmpOdds[1].split(';');
         if (nodes.length <= 1)
             combTable[pool].clearTable();
@@ -741,10 +743,31 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 var x = parseInt(tmpSels[0], 10);
                 var y = parseInt(tmpSels[1], 10);
                 combTable[pool].qOdds[x][y] = tmpStr[1];
-                combTable[pool].qColorInd[x][y] = "2";
+                combTable[pool].qColorInd[x][y] = tmpStr[2];
                 combTable[pool].haveOdds = true;
             }
         }
+        var count = 0
+        for(var b = 0; b < 5; b++){
+            minOdds[b] = 10000000;
+        }
+
+        for (var a = 0; a < 5; a++) {
+            for (var i = 0; i < combTable[pool].qOdds.length; i++) {
+                for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
+                    if(count > 0){
+                        if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool],qOdds[i][j] >= minOdds[count - 1]){
+                            minOdds[count] = combTable[pool].qOdds[i][j];
+                        }
+                    }
+                    else if(combTable[pool].qOdds[i][j] <= minOdds[count]){
+                        minOdds[count] = combTable[pool].qOdds[i][j];
+                    }
+                }
+            }
+            count++;
+        }
+        alert(minOdds);
     }
 }
 
