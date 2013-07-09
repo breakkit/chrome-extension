@@ -765,6 +765,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                     }
                 }
             }
+            debugger;
             count++;
         }
         alert(minOdds);
