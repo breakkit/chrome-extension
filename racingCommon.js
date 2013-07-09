@@ -746,6 +746,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 console.log("Color is "+combTable[pool].qColorInd[x][y]);
             }
         }
+        alert(1);
         var minOdds = new Array();
         var count = 0;
         for(var b = 0; b < 5; b++){
