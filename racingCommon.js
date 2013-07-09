@@ -745,29 +745,29 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 combTable[pool].haveOdds = true;
             }
         }
-        var minOdds = new Array();
-        var count = 0;
-        for(var b = 0; b < 5; b++){
-            minOdds[b] = 10000000;
-        }
+        // var minOdds = new Array();
+        // var count = 0;
+        // for(var b = 0; b < 5; b++){
+        //     minOdds[b] = 10000000;
+        // }
 
-/*        for (var a = 0; a < 5; a++) {
-            for (var i = 0; i < combTable[pool].qOdds.length; i++) {
-                for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
-                    if(count > 0){
-                        if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool],qOdds[i][j] >= minOdds[count - 1]){
-                            minOdds[count] = combTable[pool].qOdds[i][j];
-                        }
-                    }
-                    else if(combTable[pool].qOdds[i][j] <= minOdds[count]){
-                        minOdds[count] = combTable[pool].qOdds[i][j];
-                    }
-                }
-            }
-            debugger;
-            count++;
-        }*/
-        alert(minOdds);
+        // for (var a = 0; a < 5; a++) {
+        //     for (var i = 0; i < combTable[pool].qOdds.length; i++) {
+        //         for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
+        //             if(count > 0){
+        //                 if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool],qOdds[i][j] >= minOdds[count - 1]){
+        //                     minOdds[count] = combTable[pool].qOdds[i][j];
+        //                 }
+        //             }
+        //             else if(combTable[pool].qOdds[i][j] <= minOdds[count]){
+        //                 minOdds[count] = combTable[pool].qOdds[i][j];
+        //             }
+        //         }
+        //     }
+        //     debugger;
+        //     count++;
+        // }
+        // alert(minOdds);
     }
 }
 
