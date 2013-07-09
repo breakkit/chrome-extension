@@ -768,6 +768,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         //     count++;
         // }
         // alert(minOdds);
+        alert(combTable[pool].qColorInd);
     }
 }
 
