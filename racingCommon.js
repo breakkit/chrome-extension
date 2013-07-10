@@ -760,7 +760,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                             minOdds[count] = combTable[pool].qOdds[i][j];
                         }
                     }
-                    else if(combTable[pool].qOdds[i][j] <= minOdds[count]){
+                    else if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool].qOdds[i][j] != ""){
                         minOdds[count] = combTable[pool].qOdds[i][j];
                     }
                 }
