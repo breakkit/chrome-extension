@@ -752,6 +752,13 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             minOdds[b] = 10000000;
         }
 
+        function oddsPos(x, y){
+            this.x = x;
+            this.y = y;
+        }
+
+        var arrOddsPos = new Array();
+
         for (var a = 0; a < 5; a++) {
             for (var i = 1; i < combTable[pool].qOdds.length; i++) {
                 for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
@@ -759,10 +766,12 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                     if(count > 0){
                         if(odds <= minOdds[count] && odds >= minOdds[count - 1]){
                             minOdds[count] = odds;
+                            arrayObj[count] = new oddsPos(i,j);
                         }
                     }
                     else if(odds <= minOdds[count] && combTable[pool].qOdds[i][j] != ""){
                         minOdds[count] = odds;
+                        arrayObj[count] = new oddsPos(i,j);
                     }
                 }
             }
