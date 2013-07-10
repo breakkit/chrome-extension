@@ -755,13 +755,14 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         for (var a = 0; a < 5; a++) {
             for (var i = 1; i <= combTable[pool].qOdds.length; i++) {
                 for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
+                    var odds = parseFloat(combTable[pool].qOdds[i][j]);
                     if(count > 0){
-                        if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool],qOdds[i][j] >= minOdds[count - 1]){
-                            minOdds[count] = combTable[pool].qOdds[i][j];
+                        if(odds <= minOdds[count] && odds >= minOdds[count - 1]){
+                            minOdds[count] = odds;
                         }
                     }
-                    else if(combTable[pool].qOdds[i][j] <= minOdds[count] && combTable[pool].qOdds[i][j] != ""){
-                        minOdds[count] = combTable[pool].qOdds[i][j];
+                    else if(odds <= minOdds[count] && combTable[pool].qOdds[i][j] != ""){
+                        minOdds[count] = odds;
                     }
                 }
             }
