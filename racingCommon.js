@@ -764,7 +764,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
                     var odds = parseFloat(combTable[pool].qOdds[i][j]);
                     if(count > 0){
-                        if(odds <= minOdds[count] && odds >= minOdds[count - 1]){
+                        if(odds <= minOdds[count] && odds > minOdds[count - 1]){
                             minOdds[count] = odds;
                             arrOddsPos[count] = new oddsPos(i,j);
                         }
