@@ -778,7 +778,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
             count++;
             console.log(arrOddsPos[a]);
-            combTable[pool].qColorInd[arrayObj[a].x][arrayObj[a].y] = 1;
+            combTable[pool].qColorInd[arrOddsPos[a].x][arrOddsPos[a].y] = 1;
         }
         console.log("Minimun odds is  " + minOdds);
 
