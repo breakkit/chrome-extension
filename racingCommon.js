@@ -766,7 +766,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                     if(count > 0){
                         var sameOdds = false;
                         for(var sameOddsLoop = 0; sameOddsLoop < count; sameOddsLoop++){
-                            if(arrOddsPos[sameOddsLoop].x = i && arrOddsPos[sameOddsLoop].y = j)
+                            if(arrOddsPos[sameOddsLoop].x == i && arrOddsPos[sameOddsLoop].y == j)
                                 sameOdds = true;
                             console.log("Error " + i +"," + j);
                         }
