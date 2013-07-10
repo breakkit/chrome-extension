@@ -765,9 +765,11 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                     var odds = parseFloat(combTable[pool].qOdds[i][j]);
                     if(count > 0){
                         var sameOdds = false;
-                        for(var sameOddsLoop = 0; sameOddsLoop < count; sameOddsLoop++)
+                        for(var sameOddsLoop = 0; sameOddsLoop < count; sameOddsLoop++){
                             if(arrOddsPos[sameOddsLoop].x = i && arrOddsPos[sameOddsLoop].y = j)
                                 sameOdds = true;
+                            console.log("Error " + i "," + j);
+                        }
                         if(odds <= minOdds[count] && odds >= minOdds[count - 1] && !sameOdds){
                             minOdds[count] = odds;
                             arrOddsPos[count] = new oddsPos(i,j);
