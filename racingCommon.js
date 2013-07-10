@@ -777,7 +777,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             }
 
             count++;
-            console.log("OddsPos is  " + arrOddsPos[a]);
+            console.log(arrOddsPos[a]);
         }
         console.log("Minimun odds is  " + minOdds);
 
