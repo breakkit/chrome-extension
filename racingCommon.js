@@ -766,12 +766,12 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                     if(count > 0){
                         if(odds <= minOdds[count] && odds >= minOdds[count - 1]){
                             minOdds[count] = odds;
-                            arrayObj[count] = new oddsPos(i,j);
+                            arrOddsPos[count] = new oddsPos(i,j);
                         }
                     }
                     else if(odds <= minOdds[count] && combTable[pool].qOdds[i][j] != ""){
                         minOdds[count] = odds;
-                        arrayObj[count] = new oddsPos(i,j);
+                        arrOddsPos[count] = new oddsPos(i,j);
                     }
                 }
             }
