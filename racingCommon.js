@@ -763,9 +763,6 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             winOdds[i] = winOdds[i].split('=');
             arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
         }
-    }catch(e){
-        alert(e);
-    }
 
     arrWinOddsInfo.sort(sort);
     
@@ -792,6 +789,9 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             }
         }
 
+    }catch(e){
+        alert(e);
+    }
         console.log("Ratio : "+arrQWinRatio);
 
 /*
