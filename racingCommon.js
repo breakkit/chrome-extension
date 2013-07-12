@@ -802,8 +802,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     try{
         for(var i = 1; i < winOdds.length; i++){
             winOdds[i] = winOdds[i].split('=');
-            winOddsInfo = new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]);
-            arrWinOddsInfo.push(winOddsInfo);
+            arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
         }
         
     }catch(e){
