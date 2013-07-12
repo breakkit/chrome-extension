@@ -803,6 +803,10 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     var arrWinOddsInfo = new Array();
     var winOddsInfo;
     // arrWinOddsInfo = winOdds.split('=');
+    function sort(a,b){
+        return a.winOdds - b.winOdds;
+    }
+
     try{
         for(var i = 1; i < winOdds.length; i++){
             winOdds[i] = winOdds[i].split('=');
@@ -816,7 +820,8 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     console.log("Win odds is @" + winPlaOdds[0]);
     console.log("Win odds after split " + winOdds);
     console.log("Array win odds is " + arrWinOddsInfo);
-    console.log("win odds is in object state " + arrWinOddsInfo[0].winOdds);
+    arrWinOddsInfo.sort(sort);
+    console.log("win odds is in object state " + arrWinOddsInfo);
     // console.log("Win odds object is " arrWinOddsInfo);
 }
 
