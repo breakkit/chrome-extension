@@ -783,7 +783,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 combTable[pool].qOdds[x][y] = tmpStr[1];
                 combTable[pool].qColorInd[x][y] = tmpStr[2];
                 arrQOddsInfo.push(new qOddsInfo(tmpStr[1], tmpStr[2], x, y));
-                arrQWinRatio.push(combTable[pool].qOdds[x][y] / (arrWinOddsInfo[x].winOdds * arrWinOddsInfo[y].winOdds));
+                arrQWinRatio.push(combTable[pool].qOdds[x][y] / (arrWinOddsInfo[x-1].winOdds * arrWinOddsInfo[y-1].winOdds));
                 combTable[pool].haveOdds = true;
                 // console.log("Color is "+combTable[pool].qColorInd[x][y]);
             }
