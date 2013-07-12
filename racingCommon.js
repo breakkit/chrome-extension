@@ -726,6 +726,49 @@ function allCombOddsRefresh(pool, tmpOdds) {
 }
 
 function allCombOddsRefreshQ(pool, tmpOdds) {
+
+    //Q odds object
+    function qOddsInfo(qOdds, qColor, coodX, coodY){
+        this.qOdds = qOdds;
+        this.qColor = qColor;
+        this.coodX = coodX;
+        this.coodY = coodY;
+    }
+
+    //Q odds obejct array
+    var arrQOddsInfo = new Array();
+
+    //win odds object
+    function winOddsInfo(horseID, winOdds, winColor){
+        this.horseID = horseID;
+        this.winOdds = winOdds;
+        this.winColor = winColor;
+
+        this.getHorseID = function(){ return this.horseID;}
+        this.getWinOdds = function(){ return this.winOdds;}
+        this.getWinColor = function(){ return this.winColor;}
+    }
+
+    var winPlaOdds = winOddsByRace[1].split('#');
+    var winOdds = winPlaOdds[0].split(';');
+    var arrWinOddsInfo = new Array();
+    var arrQWinRatio = new Array();
+
+    function sort(a,b){
+        return a.winOdds - b.winOdds;
+    }
+
+    try{
+        for(var i = 1; i < winOdds.length; i++){
+            winOdds[i] = winOdds[i].split('=');
+            arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
+        }
+    }catch(e){
+        alert(e);
+    }
+
+    arrWinOddsInfo.sort(sort);
+    
     combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
@@ -742,29 +785,20 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 var y = parseInt(tmpSels[1], 10);
                 combTable[pool].qOdds[x][y] = tmpStr[1];
                 combTable[pool].qColorInd[x][y] = tmpStr[2];
+                arrQOddsInfo.push(new qOddsInfo(tmpStr[1], tmpStr[2], x, y));
+                arrQWinRatio.push(combTable[pool].qOdds[x][y] / (arrWinOddsInfo[x].winOdds * arrWinOddsInfo[y].winOdds));
                 combTable[pool].haveOdds = true;
                 console.log("Color is "+combTable[pool].qColorInd[x][y]);
             }
         }
+
+        console.log("Ratio : "+arrQWinRatio);
+
+
         var minOdds = new Array();
         var count = 0;
         for(var b = 0; b < 5; b++){
             minOdds[b] = 10000000;
-        }
-
-        function oddsPos(x, y){
-            this.x = x;
-            this.y = y;
-        }
-
-        function winOddsInfo(horseID, winOdds, winColor){
-            this.horseID = horseID;
-            this.winOdds = winOdds;
-            this.winColor = winColor;
-
-            this.getHorseID = function(){ return this.horseID;}
-            this.getWinOdds = function(){ return this.winOdds;}
-            this.getWinColor = function(){ return this.winColor;}
         }
 
         var arrOddsPos = new Array();
@@ -798,29 +832,9 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         console.log("Minimun odds is  " + minOdds);
 
     }
-    var winPlaOdds = winOddsByRace[1].split('#');
-    var winOdds = winPlaOdds[0].split(';');
-    var arrWinOddsInfo = new Array();
-    var winOddsInfo;
-    // arrWinOddsInfo = winOdds.split('=');
-    function sort(a,b){
-        return a.winOdds - b.winOdds;
-    }
-
-    try{
-        for(var i = 1; i < winOdds.length; i++){
-            winOdds[i] = winOdds[i].split('=');
-            arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
-        }
-
-        
-    }catch(e){
-        alert(e);
-    }
     console.log("Win odds is @" + winPlaOdds[0]);
     console.log("Win odds after split " + winOdds);
     console.log("Array win odds is " + arrWinOddsInfo);
-    arrWinOddsInfo.sort(sort);
     console.log(arrWinOddsInfo);
     // console.log("Win odds object is " arrWinOddsInfo);
 }
