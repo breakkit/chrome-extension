@@ -789,9 +789,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             }
         }
 
-    }catch(e){
-        alert(e);
-    }
+    
         console.log("Ratio : "+arrQWinRatio);
 
 /*
@@ -836,6 +834,9 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     console.log("Win odds after split " + winOdds);
     console.log("Array win odds is " + arrWinOddsInfo);
     console.log(arrWinOddsInfo);
+    }catch(e){
+        alert(e);
+    }
     // console.log("Win odds object is " arrWinOddsInfo);
 }
 
