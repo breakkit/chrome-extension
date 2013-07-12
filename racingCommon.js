@@ -795,7 +795,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
     }
     var winPlaOdds = winOddsByRace[1].split('#');
-    console.log("Win odds is " + winPlaOdds[0]);
+    console.log("Win odds is @" + winPlaOdds[0]);
 }
 
 function allCombOddsRefreshT(pool, tmpOdds) {
