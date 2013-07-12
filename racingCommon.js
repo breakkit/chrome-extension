@@ -797,10 +797,11 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     var winPlaOdds = winOddsByRace[1].split('#');
     var winOdds = winPlaOdds[0].split(';');
     var arrWinOddsInfo = new Array();
+    var winOddsInfo;
     // arrWinOddsInfo = winOdds.split('=');
     for(var i = 1; i < winOdds.length; i++){
         winOdds[i] = winOdds[i].split('=');
-        var winOddsInfo = new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]);
+        winOddsInfo = new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]);
         arrWinOddsInfo.push(winOddsInfo);
     }
     console.log("Win odds is @" + winPlaOdds[0]);
