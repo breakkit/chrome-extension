@@ -757,6 +757,12 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             this.y = y;
         }
 
+        function winOddsInfo(horseID, winOdds, winColor){
+            this.horseID = horseID;
+            this.winOdds = winOdds;
+            this.winColor = winColor;
+        }
+
         var arrOddsPos = new Array();
 
         for (var a = 0; a < 5; a++) {
@@ -788,7 +794,8 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         console.log("Minimun odds is  " + minOdds);
 
     }
-    console.log("Win odds is " + winOddsByRace);
+    var winPlaOdds = winOddsByRace[1].split('#');
+    console.log("Win odds is " + winPlaOdds[0]);
 }
 
 function allCombOddsRefreshT(pool, tmpOdds) {
