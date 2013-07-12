@@ -799,10 +799,15 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     var arrWinOddsInfo = new Array();
     var winOddsInfo;
     // arrWinOddsInfo = winOdds.split('=');
-    for(var i = 1; i < winOdds.length; i++){
-        winOdds[i] = winOdds[i].split('=');
-        winOddsInfo = new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]);
-        arrWinOddsInfo.push(winOddsInfo);
+    try{
+        for(var i = 1; i < winOdds.length; i++){
+            winOdds[i] = winOdds[i].split('=');
+            winOddsInfo = new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]);
+            arrWinOddsInfo.push(winOddsInfo);
+        }
+        
+    }catch(e){
+        alert(e);
     }
     console.log("Win odds is @" + winPlaOdds[0]);
     console.log("Win odds after split " + winOdds);
