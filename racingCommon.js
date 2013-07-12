@@ -794,7 +794,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
         // console.log("Ratio : "+arrQWinRatio);
 
-
+/*
         var minOdds = new Array();
         var count = 0;
         for(var b = 0; b < 5; b++){
@@ -829,7 +829,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             console.log(arrOddsPos[a]);
             combTable[pool].qColorInd[arrOddsPos[a].x][arrOddsPos[a].y] = "1";
         }
-        console.log("Minimun odds is  " + minOdds);
+        console.log("Minimun odds is  " + minOdds);*/
 
     }
     console.log("Win odds is @" + winPlaOdds[0]);
