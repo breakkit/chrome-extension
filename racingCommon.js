@@ -761,6 +761,10 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             this.horseID = horseID;
             this.winOdds = winOdds;
             this.winColor = winColor;
+
+            this.getHorseID = function(){ return this.horseID;}
+            this.getWinOdds = function(){ return this.winOdds;}
+            this.getWinColor = function(){ return this.winColor;}
         }
 
         var arrOddsPos = new Array();
@@ -804,6 +808,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             winOdds[i] = winOdds[i].split('=');
             arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
         }
+
         
     }catch(e){
         alert(e);
@@ -811,6 +816,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     console.log("Win odds is @" + winPlaOdds[0]);
     console.log("Win odds after split " + winOdds);
     console.log("Array win odds is " + arrWinOddsInfo);
+    console.log("win odds is in object state " + arrWinOddsInfo[0].winOdds);
     // console.log("Win odds object is " arrWinOddsInfo);
 }
 
