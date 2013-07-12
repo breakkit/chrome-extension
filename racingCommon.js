@@ -788,7 +788,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 arrQOddsInfo.push(new qOddsInfo(tmpStr[1], tmpStr[2], x, y));
                 // arrQWinRatio.push(combTable[pool].qOdds[x][y] / (arrWinOddsInfo[x].winOdds * arrWinOddsInfo[y].winOdds));
                 combTable[pool].haveOdds = true;
-                console.log("Color is "+combTable[pool].qColorInd[x][y]);
+                // console.log("Color is "+combTable[pool].qColorInd[x][y]);
             }
         }
 
