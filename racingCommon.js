@@ -821,7 +821,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     console.log("Win odds after split " + winOdds);
     console.log("Array win odds is " + arrWinOddsInfo);
     arrWinOddsInfo.sort(sort);
-    console.log("win odds is in object state " + arrWinOddsInfo);
+    console.log(arrWinOddsInfo);
     // console.log("Win odds object is " arrWinOddsInfo);
 }
 
