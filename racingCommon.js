@@ -788,6 +788,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         console.log("Minimun odds is  " + minOdds);
 
     }
+    console.log("Win odds is " + winOddsByRace);
 }
 
 function allCombOddsRefreshT(pool, tmpOdds) {
