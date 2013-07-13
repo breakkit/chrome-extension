@@ -815,7 +815,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         console.log(mostPossibleCombo);
 
         for(var i = 0; i < 10; i++){
-            combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = 4;
+            combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
         }
 
 
