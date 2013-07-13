@@ -749,9 +749,10 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         this.getWinColor = function(){ return this.winColor;}
     }
 
+    var winPlaOdds = new Array();
     for(var i = 1; i < winOddsByRace.length; i++){
 
-        var winPlaOdds = (winOddsByRace[i] != "") ?winOddsByRace[i].split('#');
+        winPlaOdds = (winOddsByRace[i] != "") ?winOddsByRace[i].split('#');
         break;
     }
     var winOdds = winPlaOdds[0].split(';');
