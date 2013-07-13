@@ -826,7 +826,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     // console.log(arrWinOddsInfoSorted);
     // console.log(arrWinOddsInfo);
     }catch(e){
-        alert(e);
+        // alert(e);
     }
     // console.log("Win odds object is " arrWinOddsInfo);
 }
