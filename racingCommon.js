@@ -817,51 +817,16 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         for(var i = 0; i < 10; i++){
             combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
         }
-
-
-/*
-        var minOdds = new Array();
-        var count = 0;
-        for(var b = 0; b < 5; b++){
-            minOdds[b] = 10000000;
-        }
-
-        var arrOddsPos = new Array();
-
-        for (var a = 0; a < 5; a++) {
-            for (var i = 1; i < combTable[pool].qOdds.length; i++) {
-                for (var j = 0; j < combTable[pool].qOdds[i].length; j++) {
-                    var odds = parseFloat(combTable[pool].qOdds[i][j]);
-                    if(count > 0){
-                        var sameOdds = false;
-                        for(var sameOddsLoop = 0; sameOddsLoop < count; sameOddsLoop++){
-                            if(arrOddsPos[sameOddsLoop].x == i && arrOddsPos[sameOddsLoop].y == j)
-                                sameOdds = true;
-                        }
-                        if(odds <= minOdds[count] && odds >= minOdds[count - 1] && !sameOdds){
-                            minOdds[count] = odds;
-                            arrOddsPos[count] = new oddsPos(i,j);
-                        }
-                    }
-                    else if(odds <= minOdds[count] && combTable[pool].qOdds[i][j] != ""){
-                        minOdds[count] = odds;
-                        arrOddsPos[count] = new oddsPos(i,j);
-                    }
-                }
-            }
-
-            count++;
-            console.log(arrOddsPos[a]);
-            combTable[pool].qColorInd[arrOddsPos[a].x][arrOddsPos[a].y] = "1";
-        }
-        console.log("Minimun odds is  " + minOdds);*/
+        chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+            console.log(response.farewell);
+        });
 
     }
     // console.log("Win odds is @" + winPlaOdds[0]);
     // console.log("Win odds after split " + winOdds);
     // console.log("Array win odds is " + arrWinOddsInfo);
-    console.log(arrWinOddsInfoSorted);
-    console.log(arrWinOddsInfo);
+    // console.log(arrWinOddsInfoSorted);
+    // console.log(arrWinOddsInfo);
     }catch(e){
         alert(e);
     }
