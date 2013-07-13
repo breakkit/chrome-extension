@@ -1353,7 +1353,7 @@ function getOddsBgColor(ind) {
             col = od50Bg;
             break;
         case '4':
-            col = "#FF8C00";
+            col = '#C80000';
         default:
             col = '';
     }
