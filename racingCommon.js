@@ -815,7 +815,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         console.log(mostPossibleCombo);
 
         for(var i = 0; i < 10; i++){
-            combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "2";
+            combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
         }
 
 
@@ -1353,7 +1353,7 @@ function getOddsBgColor(ind) {
             col = od50Bg;
             break;
         case '4':
-            col = '#C80000';
+            col = '#FF8C00';
         default:
             col = '';
     }
