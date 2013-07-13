@@ -817,9 +817,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         for(var i = 0; i < 10; i++){
             combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
         }
-        chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-            console.log(response.farewell);
-        });
+        
 
     }
     // console.log("Win odds is @" + winPlaOdds[0]);
