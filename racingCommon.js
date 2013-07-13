@@ -791,6 +791,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
     
         console.log("Ratio : "+arrQWinRatio);
+        console.log(arrQOddsInfo);
 
 /*
         var minOdds = new Array();
