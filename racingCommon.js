@@ -749,7 +749,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         this.getWinColor = function(){ return this.winColor;}
     }
 
-    var winPlaOdds = winOddsByRace[1].split('#');
+    var winPlaOdds = (winOddsByRace[1] == "")  ? winOddsByRace[2].split('#') : winOddsByRace[1].split('#');
     var winOdds = winPlaOdds[0].split(';');
     var arrWinOddsInfo = new Array();
     var arrQWinRatio = new Array();
@@ -826,7 +826,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     // console.log(arrWinOddsInfoSorted);
     // console.log(arrWinOddsInfo);
     }catch(e){
-        // alert(e);
+        console.log(e);
     }
     // console.log("Win odds object is " arrWinOddsInfo);
 }
