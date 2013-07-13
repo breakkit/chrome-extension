@@ -798,7 +798,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
         for(var j = 0; j < 3; j++){
             for(var i = 0; i < arrQOddsInfo.length; i++){
-                if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j] || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j])
+                if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j].horseID || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j].horseID)
                 mostPossibleCombo.push(arrQOddsInfo[i].qOdds / (arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds * arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds));
             }
         }
