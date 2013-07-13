@@ -803,7 +803,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             }
         }
 
-        console.log(mostPossibleCombo);
+        console.log("Most Combo : " + mostPossibleCombo);
 
 /*
         var minOdds = new Array();
