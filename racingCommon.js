@@ -764,7 +764,8 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
         }
 
-    arrWinOddsInfo.sort(sort);
+        var arrWinOddsInfoSorted = arrWinOddsInfo;
+    arrWinOddsInfoSorted.sort(sort);
     
     combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
@@ -792,6 +793,16 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     
         console.log("Ratio : "+arrQWinRatio);
         console.log(arrQOddsInfo);
+        var mostPossibleCombo = new Array();
+
+        for(var j = 0; j < 3; j++){
+            for(var i = 0; i < arrQOddsInfo; i++){
+                if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j] || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j])
+                mostPossibleCombo.push(arrQOddsInfo[i].qOdds / (arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds * arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds));
+            }
+        }
+
+        console.log(mostPossibleCombo);
 
 /*
         var minOdds = new Array();
@@ -831,9 +842,10 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         console.log("Minimun odds is  " + minOdds);*/
 
     }
-    console.log("Win odds is @" + winPlaOdds[0]);
-    console.log("Win odds after split " + winOdds);
-    console.log("Array win odds is " + arrWinOddsInfo);
+    // console.log("Win odds is @" + winPlaOdds[0]);
+    // console.log("Win odds after split " + winOdds);
+    // console.log("Array win odds is " + arrWinOddsInfo);
+    console.log(arrWinOddsInfoSorted);
     console.log(arrWinOddsInfo);
     }catch(e){
         alert(e);
