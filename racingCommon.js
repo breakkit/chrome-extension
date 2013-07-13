@@ -764,9 +764,9 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
         }
 
-        var arrWinOddsInfoSorted = new Array();
-        arrWinOddsInfoSorted = arrWinOddsInfo;
-    // arrWinOddsInfoSorted.sort(sort);
+        var arrWinOddsInfoSorted = arrWinOddsInfo.slice(0);
+        // arrWinOddsInfoSorted = arrWinOddsInfo;
+    arrWinOddsInfoSorted.sort(sort);
     
     combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
