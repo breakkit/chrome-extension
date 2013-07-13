@@ -752,7 +752,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     var winPlaOdds = new Array();
     for(var i = 1; i < winOddsByRace.length; i++){
 
-        winPlaOdds = (winOddsByRace[i] != "") ?winOddsByRace[i].split('#');
+        winPlaOdds = (winOddsByRace[i] != "") ?winOddsByRace[i].split('#') : ;
         break;
     }
     var winOdds = winPlaOdds[0].split(';');
