@@ -811,7 +811,9 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             }
         }
 
+        mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
         console.log(mostPossibleCombo);
+
 
 /*
         var minOdds = new Array();
