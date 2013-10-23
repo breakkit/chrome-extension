@@ -828,7 +828,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     }
     // console.log("Win odds is @" + winPlaOdds[0]);
     // console.log("Win odds after split " + winOdds);
-    // console.log("Array win odds is " + arrWinOddsInfo);
+    console.log("Array win odds is " + arrWinOddsInfo);
     console.log(arrWinOddsInfoSorted);
     // console.log(arrWinOddsInfo);
     }catch(e){
