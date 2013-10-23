@@ -772,9 +772,9 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
         var arrWinOddsInfoSorted = arrWinOddsInfo.slice(0);
         // arrWinOddsInfoSorted = arrWinOddsInfo;
-    arrWinOddsInfoSorted.sort(sort);
+        arrWinOddsInfoSorted.sort(sort);
     
-    combTable[pool].haveOdds = false;
+        combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
         var nodes = tmpOdds[1].split(';');
@@ -799,7 +799,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
     
         console.log("Ratio : "+arrQWinRatio);
-        // console.log(arrQOddsInfo);
+        console.log(arrQOddsInfo);
         var mostPossibleCombo = new Array();
 
         function calculatedRatio(ratio, coodX, coodY){
