@@ -838,8 +838,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     // console.log("Win odds object is " arrWinOddsInfo);
 }
 
-// Inform our world that we have received the friend map data.
-chrome.extension.sendRequest({internalVariable: "hhhhhhhhhhh"});
+
 
 function allCombOddsRefreshT(pool, tmpOdds) {
     if (tmpOdds[1] != null) {
