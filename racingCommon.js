@@ -838,6 +838,29 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     // console.log("Win odds object is " arrWinOddsInfo);
 }
 
+// JS script injection, so that we can read the JS class 'InternalJSVariable'
+var postFriendMap = function() {
+  var textarea = document.getElementById('transfer-dom-area');
+  textarea.value = JSON.stringify(InternalJSVariable);
+};
+
+// Create a dummy textarea DOM.
+var textarea = document.createElement('textarea');
+textarea.setAttribute('id', 'transfer-dom-area');
+textarea.style.display = 'none';
+document.body.appendChild(textarea);
+
+// Start injecting the JS script.
+var script = document.createElement('script');
+script.appendChild(document.createTextNode('(' + postFriendMap + ')();'));
+document.body.appendChild(script);
+
+// Inform our world that we have received the friend map data.
+chrome.extension.sendRequest({internalVariable: textarea.value});
+
+// Clean up since we no longer need this.
+document.body.removeChild(textarea);
+
 function allCombOddsRefreshT(pool, tmpOdds) {
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
