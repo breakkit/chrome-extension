@@ -132,7 +132,26 @@ function updateRefreshTime(inTime) {
             document.getElementById('oddsRefreshTime').innerHTML = aTime;
         if (document.getElementById('PwinTime'))
             document.getElementById('PwinTime').innerHTML = aTime;
+        if (document.getElementById('winOddsTime'))
+            document.getElementById('winOddsTime').innerHTML = aTime;
     }
+}
+
+function getRefreshTime(inTime) {
+    var aTime = inTime.replace(/:/g, '');
+    if (aTime != '' && !isNaN(aTime)) {
+        aTime = aTime.substring(0, 2) + ':' + aTime.substring(2, 4);
+
+        var oTime = '';
+        if (document.getElementById('oddsRefreshTime'))
+            oTime = document.getElementById('oddsRefreshTime').innerHTML;
+
+        if (oTime != '' && oTime != null)
+            if (oTime > aTime && !(oTime.substring(0, 2) == '23' && aTime.substring(0, 2) == '00'))
+            aTime = oTime;
+    }
+
+    return aTime;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -256,8 +275,8 @@ function winOddsLoadDoc(url, mDate, mVenue, data, start, end) {
     if (end != null && end != '')
         dataParam += '&end=' + end;
     winOddsRefreshDoc(url + '?type=jcbwracing_winodds&date=' + mDate + '&venue=' + mVenue + dataParam, 0);
-}
-
+}   
+     
 function winOddsRefreshDoc(url, retry) {
     if (retry > 2)
         return;
@@ -314,12 +333,12 @@ function refreshWinOdds(winOdds) {
     var lastFoundOdds = -1;
     for (var i = 1; i < wpTableList.length; i++) {
         if (wpTableList[i] != null) {
-            if (typeof winOdds[i] != "undefined" || (lastFoundOdds != -1 && wpTableList[i].selectPool == "TCE") ) {
+            if (typeof winOdds[i] != "undefined" || (lastFoundOdds != -1 && (wpTableList[i].selectPool == "TCE" || wpTableList[i].selectPool == "QTT"))) {
                 if (wpTableList[i].singleRace && wpTableList[i].firstLeg != i) {
                     wpTableList[i].winOdds = wpTableList[wpTableList[i].firstLeg].winOdds;
                 }
                 else {
-                    var winOddsIdx = (lastFoundOdds != -1 && wpTableList[i].selectPool == "tce") ? lastFoundOdds : i;
+                    var winOddsIdx = (lastFoundOdds != -1 && (wpTableList[i].selectPool == "tce" || wpTableList[i].selectPool == "qtt")) ? lastFoundOdds : i;
                     var tmpOdds = winOdds[winOddsIdx].split(';');
                     if (tmpOdds.length <= 1)
                         wpTableList[i].clearWinOdds();
@@ -338,10 +357,15 @@ function refreshWinOdds(winOdds) {
         }
     }
 
+    if (typeof checkQttOddsEnqEnable == 'function') {
+        checkQttOddsEnqEnable();
+    }
+
     if (isEditBetMode && typeof openEditOddsContent == 'function') {
         openEditOddsContent();
     }
 }
+
 //////////////////////////////////////////////////////////////////////////
 //  Get single WIN/PLA odds
 //////////////////////////////////////////////////////////////////////////
@@ -509,6 +533,9 @@ function combOddsRefreshDoc(pool, url) {
         case "TCE":
             combOddsRefreshDocTCE(0, url);
             break;
+        case "QTT":
+            combOddsRefreshDocQTT(0, url);
+            break;
         default:
             break;
     }
@@ -586,6 +613,21 @@ function combOddsRefreshDocFF(retry, url) {
     });
 }
 
+function combOddsRefreshDocQTT(retry, url) {
+    if (retry > 2)
+        return;
+    JXml.GetData({
+        Url: url,
+        Type: "GET",
+        OnSuccess: function(xml) {
+            combOddsRefresh(xml, "QTT");
+        },
+        error: function() {
+            window.setTimeout('combOddsRefreshDocQTT(' + (retry + 1) + ', \'' + url + '\')', 400);
+        }
+    });
+}
+
 function combOddsRefresh(xml, pool) {
     var str = JXml.GetText(JXml.SelectSingleNode(xml, 'OUT'));
     if (str != '') {
@@ -600,13 +642,12 @@ function combOddsRefresh(xml, pool) {
             investmentRefresh(pool, tmpOdds);
 		setRacingTableObj1(combTable[pool]);
         combTable[pool].setTableToDiv();
-        //alert(tmpOdds);
     }
 }
 
 //odds push
 function combOddsRefreshPush(str, pool) {
-    if (str != '') {
+    if (typeof str != 'undefined' && str != '') {
         var tmpOdds = str.split('@@@');
         if (tmpOdds.length == 2 && tmpOdds[1] != 'undefined' && tmpOdds[1] != ';' && tmpOdds[1] != 'QIN;' && tmpOdds[1] != 'QPL;' && tmpOdds[1] != 'TRI;') {
             if (combTable[pool].curFunc == 0)
@@ -647,7 +688,7 @@ function investmentRefresh(pool, tmpOdds) {
                     continue;
 
                 var posNodes = nodes[j].split('|');
-                if (posNodes.length == 4) {
+                if (posNodes.length > 1) {
                     var hrsNum = parseInt(posNodes[0]);
 
                     combTable[pool].oddsTable[hrsNum-1][0] = hrsNum;
@@ -726,55 +767,7 @@ function allCombOddsRefresh(pool, tmpOdds) {
 }
 
 function allCombOddsRefreshQ(pool, tmpOdds) {
-
-    //Q odds object
-    function qOddsInfo(qOdds, qColor, coodX, coodY){
-        this.qOdds = qOdds;
-        this.qColor = qColor;
-        this.coodX = coodX;
-        this.coodY = coodY;
-    }
-
-    //Q odds obejct array
-    var arrQOddsInfo = new Array();
-
-    //win odds object
-    function winOddsInfo(horseID, winOdds, winColor){
-        this.horseID = horseID;
-        this.winOdds = winOdds;
-        this.winColor = winColor;
-
-        this.getHorseID = function(){ return this.horseID;}
-        this.getWinOdds = function(){ return this.winOdds;}
-        this.getWinColor = function(){ return this.winColor;}
-    }
-
-    var winPlaOdds = new Array();
-    for(var i = 1; i < winOddsByRace.length; i++){
-        if(winOddsByRace[i] != ""){
-            winPlaOdds = winOddsByRace[i].split('#');
-            break;
-        }
-    }
-    var winOdds = winPlaOdds[0].split(';');
-    var arrWinOddsInfo = new Array();
-    var arrQWinRatio = new Array();
-
-    function sort(a,b){
-        return a.winOdds - b.winOdds;
-    }
-
-    try{
-        for(var i = 1; i < winOdds.length; i++){
-            winOdds[i] = winOdds[i].split('=');
-            arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
-        }
-
-        var arrWinOddsInfoSorted = arrWinOddsInfo.slice(0);
-        // arrWinOddsInfoSorted = arrWinOddsInfo;
-        arrWinOddsInfoSorted.sort(sort);
-    
-        combTable[pool].haveOdds = false;
+    combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
         var nodes = tmpOdds[1].split(';');
@@ -790,55 +783,11 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 var y = parseInt(tmpSels[1], 10);
                 combTable[pool].qOdds[x][y] = tmpStr[1];
                 combTable[pool].qColorInd[x][y] = tmpStr[2];
-                arrQOddsInfo.push(new qOddsInfo(tmpStr[1], tmpStr[2], x, y));
-                arrQWinRatio.push(combTable[pool].qOdds[x][y] / (arrWinOddsInfo[x-1].winOdds * arrWinOddsInfo[y-1].winOdds));
                 combTable[pool].haveOdds = true;
-                // console.log("Color is "+combTable[pool].qColorInd[x][y]);
             }
         }
-
-    
-        console.log("Ratio : "+arrQWinRatio);
-        console.log(arrQOddsInfo);
-        var mostPossibleCombo = new Array();
-
-        function calculatedRatio(ratio, coodX, coodY){
-            this.ratio = ratio;
-            this.coodX = coodX;
-            this.coodY = coodY;
-        }
-
-        for(var j = 0; j < 3; j++){
-            for(var i = 0; i < arrQOddsInfo.length; i++){
-                // console.log(i,j);
-                if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j].horseID || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j].horseID){
-                    var ratio = arrQOddsInfo[i].qOdds / (arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds * arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds);
-                    mostPossibleCombo.push(new calculatedRatio(ratio, arrQOddsInfo[i].coodX, arrQOddsInfo[i].coodY));
-                }
-            }
-        }
-
-        mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
-        console.log(mostPossibleCombo);
-
-        for(var i = 0; i < 5; i++){
-            combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
-        }
-        
-
     }
-    // console.log("Win odds is @" + winPlaOdds[0]);
-    // console.log("Win odds after split " + winOdds);
-    console.log(arrWinOddsInfo);
-    console.log(arrWinOddsInfoSorted);
-    // console.log(arrWinOddsInfo);
-    }catch(e){
-        console.log(e);
-    }
-    // console.log("Win odds object is " arrWinOddsInfo);
 }
-
-
 
 function allCombOddsRefreshT(pool, tmpOdds) {
     if (tmpOdds[1] != null) {
@@ -1101,25 +1050,34 @@ function refreshScratchHorse(scratchList) {
                 for (var k = 0; k < hStatSub.length; k++)
                     if (wpTableList[j].tableObj[i] && wpTableList[j].tableObj[i][k]) {
                         wpTableList[j].tableObj[i][k].hScr = 0;
-                        if (pageName == 'TCE' && wpTableList[j + 1] && wpTableList[j + 2]) {
+                        if ((pageName == 'TCE' || pageName == 'QTT') && wpTableList[j + 1] && wpTableList[j + 2]) {
                             wpTableList[j + 1].tableObj[i][k].hScr = 0;
                             wpTableList[j + 2].tableObj[i][k].hScr = 0;
+                            
+                            if (wpTableList[j + 3]) {
+                                wpTableList[j + 3].tableObj[i][k].hScr = 0;
+                            }
+                            
                         }
                     }
             }
 
             wpTableList[j].setInnerTableHtml();
-            if (typeof(pageName) != 'undefined' && pageName == 'TCE' && wpTableList[j + 1] && wpTableList[j + 2]) {
+            if (typeof (pageName) != 'undefined' && (pageName == 'TCE' || pageName == 'QTT') && wpTableList[j + 1] && wpTableList[j + 2]) {
                 wpTableList[j + 1].setInnerTableHtml();
                 wpTableList[j + 2].setInnerTableHtml();
+
+                if (wpTableList[j + 3]) {
+                    wpTableList[j + 3].setInnerTableHtml();
+                }
             }            
         }
     }
 	
     var scratchs = scratchList.split(';');
     var tbNos = "";
+    clearScratchList();
     if (scratchs.length > 1) {
-        clearScratchList();
         for (var i = 1; i < scratchs.length; i++) {
             var tmp = scratchs[i].split('#');
             var raceNo = parseInt(tmp[0], 10);
@@ -1138,8 +1096,18 @@ function refreshScratchHorse(scratchList) {
                             }
                         }
                     }
-                }
-                else {
+                }else if (typeof (pageName) != 'undefined' && pageName == 'QTT') {
+                    if (raceNo == parseInt(curentRaceNo)) {
+                        if (!wpTableList[raceNo].singleRace || raceNo == wpTableList[raceNo].firstLeg) {// for QTT
+                            for (var n = raceNo; n <= raceNo + 3; n++) {
+                                if (wpTableList[n] && wpTableList[n].tableObj[runnerNo]) {
+                                    wpTableList[n].tableObj[runnerNo][0].hScr = '1';
+                                    wpTableList[n].tableObj[runnerNo][0].hStat = 'S';
+                                }
+                            }
+                        }
+                    }
+                } else {
                     wpTableList[raceNo].tableObj[runnerNo][0].hScr = '1';
                     wpTableList[raceNo].tableObj[runnerNo][0].hStat = 'S';
                 }
@@ -1155,8 +1123,13 @@ function refreshScratchHorse(scratchList) {
                     wpTableList[n].setInnerTableHtml();
                 }
             }
-        }
-        else {
+        } else if (typeof (pageName) != 'undefined' && pageName == 'QTT') {
+            for (var n = parseInt(curentRaceNo); n <= parseInt(curentRaceNo) + 3; n++) {
+                if (typeof wpTableList[n] != 'undefined') {
+                    wpTableList[n].setInnerTableHtml();
+                }
+            }
+        } else {
             tableNum = tbNos.split(',');
             for (var i = 0; i < tableNum.length; i++) {
                 if (typeof wpTableList[parseInt(tableNum[i])] != 'undefined') {
@@ -1169,19 +1142,31 @@ function refreshScratchHorse(scratchList) {
     }
 
     try {
+        if (typeof checkQttOddsEnqEnable == 'function') {
+            checkQttOddsEnqEnable();
+        }
+        
         if (isEditBetMode && typeof openEditOddsContent == 'function') {
             openEditOddsContent();
         }
     } catch (e) { }
 
+    /*if (typeof (pageName) != 'undefined' && pageName == 'QTT' &&
+        typeof validateRandGen == 'function' && !validateRandGen()) {
+        ranGenFlag = 0;
+        $("#betAmountCalTopUnitBetInput").val(getBetslipSettingsBetUnit('QTT'));
+        $("#betAmountCalBottomUnitBetInput").val(getBetslipSettingsBetUnit('QTT'));
+        resetAllCheckBox();
+    }*/
 }
 
 function clearScratchList() {
     for (var i = 0; i < horseScratchs.length; i++) {
-        for (var j = 0; j < 15; j++) {
-            if (horseScratchs[i] != null && horseScratchs[i] != undefined
-            && horseScratchs[i][j] != null && horseScratchs[i][j] != undefined)
+        if (horseScratchs[i]) {
+            for (var j = 0; j < horseScratchs[i].length; j++) {
+                //if (horseScratchs[i] != undefined && horseScratchs[i][j] != undefined)
                 horseScratchs[i][j] = '0';
+            }
         }
     }
 }
@@ -1221,23 +1206,41 @@ function refreshReserveHorse() {
                 for (var k = 0; k < hStatSub.length; k++)
                     if (wpTableList[j].tableObj[i] && wpTableList[j].tableObj[i][k]) {
                     wpTableList[j].tableObj[i][k].hStat = hStatSub[k];
-                    if (pageName == 'TCE' && wpTableList[j + 1] && wpTableList[j + 2]) {
+                    if ((pageName == 'TCE' || pageName == 'QTT') && wpTableList[j + 1] && wpTableList[j + 2]) {
                         wpTableList[j + 1].tableObj[i][k].hStat = hStatSub[k];
                         wpTableList[j + 2].tableObj[i][k].hStat = hStatSub[k];
+
+                        if(wpTableList[j + 3])
+                            wpTableList[j + 3].tableObj[i][k].hStat = hStatSub[k];
                     }
                 }
             }
             wpTableList[j].setInnerTableHtml();
-            if (pageName == 'TCE' && wpTableList[j + 1] && wpTableList[j + 2]) {
+            if ((pageName == 'TCE' || pageName == 'QTT') && wpTableList[j + 1] && wpTableList[j + 2]) {
                 wpTableList[j + 1].setInnerTableHtml();
                 wpTableList[j + 2].setInnerTableHtml();
+
+                if (wpTableList[j + 3])
+                    wpTableList[j + 3].setInnerTableHtml();
             }
         }
     }
 
+    if (typeof checkQttOddsEnqEnable == 'function') {
+        checkQttOddsEnqEnable();
+    }
+    
     if (isEditBetMode && typeof openEditOddsContent == 'function') {
         openEditOddsContent();
     }
+
+    /*if (typeof (pageName) != 'undefined' && pageName == 'QTT' &&
+        typeof validateRandGen == 'function' && !validateRandGen()) {
+        ranGenFlag = 0;
+        $("#betAmountCalTopUnitBetInput").val(getBetslipSettingsBetUnit('QTT'));
+        $("#betAmountCalBottomUnitBetInput").val(getBetslipSettingsBetUnit('QTT'));
+        resetAllCheckBox();
+    }*/
 }
 
 function clearReserveList() {
@@ -1288,7 +1291,6 @@ function poolTotSRefreshDoc(url, retry) {
         Cache: false,
         DataType: "xml",
         OnSuccess: function(xml) {
-
             var node = JXml.SelectSingleNode(xml, "PT");
             document.getElementById('poolInvTxt').innerHTML = '$' + addComma(JXml.GetText(node));
         },
@@ -1323,9 +1325,6 @@ function getOddsBgColor(ind) {
             break;
         case '3':
             col = od50Bg;
-            break;
-        case '4':
-            col = '#FF8C00';
             break;
         default:
             col = '';
@@ -1554,6 +1553,26 @@ function sync2TableRowHeight(tObj1, tObj2) {
     try {
         wpTableList[tObj1.id.substring(7)].updateRowHeights();
         wpTableList[tObj2.id.substring(7)].updateRowHeights();
+
+        var subTitle1Height = $("#" + tObj1.divId).find(".subTitleBar").height();
+        var subTitle2Height = $("#" + tObj2.divId).find(".subTitleBar").height();
+
+        var subTitleMaxHeight = subTitle1Height;
+        if (subTitleMaxHeight < subTitle2Height) {
+            subTitleMaxHeight = subTitle2Height;
+        }
+
+        if (subTitleMaxHeight > 55) {
+            subTitleMaxHeight = 70;
+        } else if (subTitleMaxHeight > 40) {
+            subTitleMaxHeight = 55;
+        }
+        $("#" + tObj1.divId).find(".subTitleBar").height(subTitleMaxHeight);
+        $("#" + tObj2.divId).find(".subTitleBar").height(subTitleMaxHeight);
+
+        $("#" + tObj1.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        $("#" + tObj2.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        
         var tb1 = document.getElementById(tObj1.id + 'InnerTable');
         var tb2 = document.getElementById(tObj2.id + 'InnerTable');
         var trs1 = tb1.getElementsByTagName('tr');
@@ -1574,6 +1593,32 @@ function sync3TableRowHeight(tObj1, tObj2, tObj3) {
         wpTableList[tObj1.id.substring(7)].updateRowHeights();
         wpTableList[tObj2.id.substring(7)].updateRowHeights();
         wpTableList[tObj3.id.substring(7)].updateRowHeights();
+
+        var subTitle1Height = $("#" + tObj1.divId).find(".subTitleBar").height();
+        var subTitle2Height = $("#" + tObj2.divId).find(".subTitleBar").height();
+        var subTitle3Height = $("#" + tObj3.divId).find(".subTitleBar").height();
+
+        var subTitleMaxHeight = subTitle1Height;
+        if (subTitleMaxHeight < subTitle2Height) {
+            subTitleMaxHeight = subTitle2Height;
+        } 
+        if (subTitleMaxHeight < subTitle3Height) {
+            subTitleMaxHeight = subTitle3Height;
+        }
+
+        if (subTitleMaxHeight > 55) {
+            subTitleMaxHeight = 70;
+        } else if (subTitleMaxHeight > 40) {
+            subTitleMaxHeight = 55;
+        }
+        $("#" + tObj1.divId).find(".subTitleBar").height(subTitleMaxHeight);
+        $("#" + tObj2.divId).find(".subTitleBar").height(subTitleMaxHeight);
+        $("#" + tObj3.divId).find(".subTitleBar").height(subTitleMaxHeight);
+
+        $("#" + tObj1.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        $("#" + tObj2.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        $("#" + tObj3.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+
         var tb1 = document.getElementById(tObj1.id + 'InnerTable');
         var tb2 = document.getElementById(tObj2.id + 'InnerTable');
         var tb3 = document.getElementById(tObj3.id + 'InnerTable');
@@ -1589,6 +1634,69 @@ function sync3TableRowHeight(tObj1, tObj2, tObj3) {
             $(trs1[i].cells[0]).height(maxH);
             $(trs2[i].cells[0]).height(maxH);
             $(trs3[i].cells[0]).height(maxH);
+        }
+    }
+    catch (e) { }
+}
+
+function sync4TableRowHeight(tObj1, tObj2, tObj3, tObj4) {
+    try {
+        wpTableList[tObj1.id.substring(7)].updateRowHeights();
+        wpTableList[tObj2.id.substring(7)].updateRowHeights();
+        wpTableList[tObj3.id.substring(7)].updateRowHeights();
+        wpTableList[tObj4.id.substring(7)].updateRowHeights();
+
+        var subTitle1Height = $("#" + tObj1.divId).find(".subTitleBar").height();
+        var subTitle2Height = $("#" + tObj2.divId).find(".subTitleBar").height();
+        var subTitle3Height = $("#" + tObj3.divId).find(".subTitleBar").height();
+        var subTitle4Height = $("#" + tObj4.divId).find(".subTitleBar").height();
+
+        var subTitleMaxHeight = subTitle1Height;
+        if (subTitleMaxHeight < subTitle2Height) {
+            subTitleMaxHeight = subTitle2Height;
+        }
+        if (subTitleMaxHeight < subTitle3Height) {
+            subTitleMaxHeight = subTitle3Height;
+        }
+        if (subTitleMaxHeight < subTitle4Height) {
+            subTitleMaxHeight = subTitle4Height;
+        }
+
+        if (subTitleMaxHeight > 55) {
+            subTitleMaxHeight = 70;
+        } else if (subTitleMaxHeight > 40) {
+            subTitleMaxHeight = 55;
+        }
+        $("#" + tObj1.divId).find(".subTitleBar").height(subTitleMaxHeight);
+        $("#" + tObj2.divId).find(".subTitleBar").height(subTitleMaxHeight);
+        $("#" + tObj3.divId).find(".subTitleBar").height(subTitleMaxHeight);
+        $("#" + tObj4.divId).find(".subTitleBar").height(subTitleMaxHeight);
+
+        $("#" + tObj1.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        $("#" + tObj2.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        $("#" + tObj3.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        $("#" + tObj4.divId).find(".subTitleBar").css('vertical-align', 'text-top');
+        
+        var tb1 = document.getElementById(tObj1.id + 'InnerTable');
+        var tb2 = document.getElementById(tObj2.id + 'InnerTable');
+        var tb3 = document.getElementById(tObj3.id + 'InnerTable');
+        var tb4 = document.getElementById(tObj4.id + 'InnerTable');
+        var trs1 = tb1.getElementsByTagName('tr');
+        var trs2 = tb2.getElementsByTagName('tr');
+        var trs3 = tb3.getElementsByTagName('tr');
+        var trs4 = tb4.getElementsByTagName('tr');
+        for (var i = 0; i < trs1.length; i++) {
+            var maxH = (tObj1.rowHeights[i]) ? tObj1.rowHeights[i] : 20;
+            if (tObj2.rowHeights[i] && maxH < tObj2.rowHeights[i])
+                maxH = tObj2.rowHeights[i];
+            if (tObj3.rowHeights[i] && maxH < tObj3.rowHeights[i])
+                maxH = tObj3.rowHeights[i];
+            if (tObj4.rowHeights[i] && maxH < tObj4.rowHeights[i])
+                maxH = tObj4.rowHeights[i];
+            $(trs1[i].cells[0]).height(maxH);
+            $(trs2[i].cells[0]).height(maxH);
+            $(trs3[i].cells[0]).height(maxH);
+            $(trs4[i].cells[0]).height(maxH);
         }
     }
     catch (e) { }
@@ -1717,7 +1825,22 @@ function isNumeric(strString) {
     var strChar;
     var blnResult = true;
 
-    if (strString.length == 0) return false;
+    if (strString == null || strString == undefined || strString.length == 0) return false;
+
+    for (i = 0; i < strString.length && blnResult; i++) {
+        strChar = strString.charAt(i);
+        if (strValidChars.indexOf(strChar) == -1)
+            blnResult = false;
+    }
+    return blnResult;
+}
+
+function isNumericDash(strString) {
+    var strValidChars = "0123456789.";
+    var strChar;
+    var blnResult = true;
+
+    if (strString == null || strString == undefined || strString.length == 0) return false;
 
     for (i = 0; i < strString.length && blnResult; i++) {
         strChar = strString.charAt(i);
@@ -1818,6 +1941,7 @@ var TCE_COOKIE_NAME = 'TCE_sel';
 var T_T_COOKIE_NAME = 'TT_sel';
 var TRI_COOKIE_NAME = 'TRI_sel';
 var F_F_COOKIE_NAME = 'FF_sel';
+var QTT_COOKIE_NAME = 'QTT_sel';
 
 function getCookie(name) {
     var start = document.cookie.indexOf(name + "=");
@@ -1849,11 +1973,21 @@ function isSingleRacePool(pool) {
     return singleRacePoolList.indexOf(pool) >= 0;
 }
 
+function isCwin(pool) {
+    if (pool == "CWA" || pool == "CWB" || pool == "CWC") {
+        return true;
+    }
+    return false;
+}
+
 function processQuickBet(pool, raceNo, sel1, sel2) {
     var betSel = '';
     switch (pool) {
         case 'WIN':
         case 'PLA':
+        case 'CWA':
+        case 'CWB':
+        case 'CWC':
             betSel = '' + sel1;
             break;
         case 'QIN':
@@ -1861,16 +1995,17 @@ function processQuickBet(pool, raceNo, sel1, sel2) {
         case 'TRI':
         case 'F-F':
         case 'TCE':
+        case 'QTT':    
             betSel = sel1.replace(/-/g, '+');
             break;
         case 'DBL':
             betSel = sel1 + '/' + sel2;
             break;
     }
-    if(pool != 'TCE')
+    if (pool != 'TCE' && pool != 'QTT')
         addToBetslip(pool, '', raceNo, betSel, 1, ' $' + getBetslipSettingsBetUnit(pool), 0);
     else
-        addToBetslip(pool + ' S', '', raceNo, betSel, 0);
+        addToBetslip(pool + ' S', '', raceNo, betSel, 0, ' $' + getBetslipSettingsBetUnit(pool), 0);
 }
 
 function addToBetslip(poolShort, poolLong, raceNo, betSel, allupflag, unitbet, isRandGen, ignoreFlexibet) {
@@ -1883,13 +2018,24 @@ function addToBetslip(poolShort, poolLong, raceNo, betSel, allupflag, unitbet, i
     var poolLong1 = shortPoolNames[poolShort];
     var poolLong2 = longPoolNames[poolShort];
     var betlineShort = venueShort + ' ' + dayShort + ' ' + poolShort + ' ' + raceNo + '*' + betSel;
-    var betLineDesc1 = poolLong1 + ' ' + raceNoLong.replace('#', raceNo);
-    var betLineDesc2 = betSel;
+
+    var betLineDesc1 = '';
+    var betLineDesc2 = '';
+                                
+    if (!isCwin(poolShort)) { 
+        betLineDesc1 = poolLong1 + ' ' + raceNoLong.replace('#', raceNo);
+        betLineDesc2 = betSel;
+    } else {
+        betLineDesc1 = cwinName + '<br>' + poolShort + ' ' + raceNo + '*' + betSel.split('+')[0] + '/...';
+        betLineDesc2 = '';   
+    }
+    
+    
     if (poolLong != null && poolLong != '')
         poolLong2 = poolLong;
     var betLineLong = venueLong + ' ' + dayLong + '<BR>'
                   + (isSingleRacePool(poolShort) ? '' : (poolLong2 + '<BR>')) + parseBet(poolShort, poolLong2, raceNo, betSel);
-
+    
     if (isRandGen == 1)
         betLineLong += randNum;
 
@@ -1912,10 +2058,14 @@ function addToBetslip(poolShort, poolLong, raceNo, betSel, allupflag, unitbet, i
           + '\nisAllup : ' + allupflag + '\nisRandGen : ' + isRandGen
           + '\nisFlexibet : ' + isFlexibet() + '\nunitbet : ' + unitbet);
 
+    var typeDescription = "";
+    if (isCwin(poolShort))
+        typeDescription = cwinPoolName[raceNo][poolShort];
+
     try {
         // alert(top.betSlipFrame.addSelEx);
         return top.betSlipFrame.addSelEx(betlineShort + unitbet, betLineLong, betLineDesc1, betLineDesc2,
-           allupflag, 0, 0, 0, isRandGen, '', isFlexibet());
+           allupflag, 0, 0, 0, isRandGen, '', isFlexibet(), 0, 0,typeDescription);
 
     }
     catch (e) { }
@@ -1928,8 +2078,18 @@ function addToBetslipAlup(poolShort, formula, betSel, unitbet, isRandGen) {
 
     var poolLong = shortPoolNames[poolShort];
     var betlineShort = venueShort + ' ' + dayShort + ' ' + poolShort + ' ' + formula + '/' + betSel;
-    var betLineDesc1 = alupLong + ' ' + formula;
-    var betLineDesc2 = betSel;
+    
+    var betLineDesc1 = '';
+    var betLineDesc2 = '';
+
+    if (!isCwin(poolShort)) {
+        betLineDesc1 = alupLong + ' ' + formula;
+        betLineDesc2 = betSel;
+    } else {
+        betLineDesc1 = cwinName + '<br>' + poolShort + ' ' + raceNo + '*' + betSel.split('+')[0] + '/...';
+        betLineDesc2 = '';
+    }
+    
     var betLineLong = venueLong + ' ' + dayLong + '<BR>'
                   + alupLong + ' ' + formula + '<BR>' + parseAlupBetSelection(formula, betSel);
 
@@ -1949,9 +2109,25 @@ function addToBetslipAlup(poolShort, formula, betSel, unitbet, isRandGen) {
         alert(betlineShort + '\n' + betLineLong + '\n' + betLineDesc1 + '\n' + betLineDesc2
           + '\nisRandGen : ' + isRandGen + '\nisFlexibet : ' + isFlexibet() + '\nunitbet : ' + unitbet);
 
+    var typeDescription = "";
+    if (betSel) {
+        var singleBets = betSel.split('/');
+        for (var i = 0; i < singleBets.length; i++) {
+            var dummy = singleBets[i].trim().split(' ');
+            var betType = dummy[0].trim();
+            var raceNo = dummy[1].trim().split("*")[0].trim();
+            
+            if (isCwin(betType))
+                typeDescription += cwinPoolName[raceNo][betType];
+
+            if (i != (singleBets.length -1))
+                typeDescription += ";;";
+        }
+    }
+
     try {
         return top.betSlipFrame.addSelEx(betlineShort + unitbet, betLineLong, betLineDesc1, betLineDesc2,
-           0, 0, 0, 0, isRandGen, '', isFlexibet());
+           0, 0, 0, 0, isRandGen, '', isFlexibet(), 0, 0, typeDescription);
     }
     catch (e) { ; }
     return 1;
@@ -1963,9 +2139,20 @@ function parseAlupBetSelection(formula, betSel) {
     for (var i = 0; i < betS.length; i++) {
         var splitPool = betS[i].split(' ');
         var splitRace = splitPool[1].split('*');
-        longBet.append(raceNoLong.replace('#', splitRace[0])).append(' ');
-        longBet.append(longPoolNames[splitPool[0]]).append('<BR>');
-        longBet.append(parseBanker(splitRace[0], splitRace[1]));
+        if (!isCwin(splitPool[0])) {
+            longBet.append(raceNoLong.replace('#', splitRace[0])).append(' ');
+            longBet.append(longPoolNames[splitPool[0]]).append('<BR>');
+            longBet.append(parseBanker(splitRace[0], splitRace[1]));
+        } else {
+            var raceNo = splitRace[0];
+            longBet.append(raceNoLong.replace('#', splitRace[0])).append(' ');
+            longBet.append(longPoolNames[splitPool[0]]);
+            if (cwinPoolName[raceNo][splitPool[0]] != null && cwinPoolName[raceNo][splitPool[0]] != "") {
+                longBet.append(' (' + cwinPoolName[raceNo][splitPool[0]] + ')');
+            }
+            longBet.append('<BR>');
+            longBet.append(parseCwinBanker(raceNo, splitRace[1], splitPool[0]));
+        }
     }
     return longBet.toString();
 }
@@ -1981,6 +2168,7 @@ function parseBet(pool, poolLong, raceNo, betSel) {
     return longBet.toString();
 }
 
+/*
 function parseRace(pool, poolLong, raceNo, betSel) {
     var longBet = new StringBuffer();
     var betS = betSel.split('/');
@@ -1993,6 +2181,89 @@ function parseRace(pool, poolLong, raceNo, betSel) {
         longBet.append(parseBanker(r, betS[i]));
     }
     return longBet.toString();
+}
+*/
+
+function parseRace(pool, poolLong, raceNo, betSel) {
+    var longBet = new StringBuffer();
+    var betS = betSel.split('/');
+    for (var i = 0; i < betS.length; i++) {
+        var r = raceNo;
+        if (i > 0)
+            r = raceLeg[i];
+        if (!isCwin(pool)) {
+            longBet.append(raceNoLong.replace('#', r))
+               .append(isSingleRacePool(pool) ? (' ' + poolLong) : '').append('<BR>');
+            longBet.append(parseBanker(r, betS[i]));
+        } else {
+            longBet.append(raceNoLong.replace('#', r))
+                   .append(isSingleRacePool(pool) ? (' ' + poolLong) : '');
+            if (cwinPoolName[raceNo][pool] != null && cwinPoolName[raceNo][pool] != "") {
+                longBet.append(' (' + cwinPoolName[raceNo][pool] + ')');
+            }
+            longBet.append('<BR>');
+            longBet.append(parseCwinBanker(r, betS[i], pool));
+        }
+    }
+    return longBet.toString();
+}
+
+function parseCwinBanker(raceNo, betSel, pool) {
+    var longBet = new StringBuffer();
+    var betS = betSel.split('+');
+    longBet.append('<div style="padding-left: 32px">');
+    for (var i = 0; i < betS.length; i++) {
+        if (i > 0)
+            longBet.append(' + ');
+        longBet.append(compositeLbl + ' ').append(betS[i]);
+        if (cwinGroups[raceNo][betS[i]]!=null && cwinGroups[raceNo][betS[i]]!="") {
+            longBet.append(' (' + cwinGroups[raceNo][betS[i]] + ')');
+        }
+        if (betS[i] == parseInt(betS[i], 10)) {
+            betS[i] = cwinOpts[raceNo - 1][betS[i]];
+        }
+        longBet.append(': ').append('(').append(parseCwinLeg(raceNo, cwinStarters[raceNo][betS[i]])).append(')');
+    }
+    longBet.append('</div>');
+    return longBet.toString();
+}
+
+function parseCwinLeg(raceNo, betSel) {
+    var longBet = new StringBuffer();
+    var betLeg = betSel.split('+');
+
+    for (var i = 0; i < betLeg.length; i++) {
+        //longBet.append(indentStrSt).append(betLeg[i]).append(' ');
+        longBet.append(parseInt(betLeg[i],10)).append(' ');
+        if (betLeg[i] == 'F')
+            longBet.append(labelField);
+        else {
+            var r = parseInt(raceNo, 10);
+            var l = parseInt(betLeg[i], 10);
+            var bHorseNames = (horseNames[r][l] != null ? horseNames[r][l].split('/') : new Array());
+            var bHorseCodes = (horseCodes[r][l] != null ? horseCodes[r][l].split('/') : new Array());
+            var bHorseStats = (horseStats[r][l] != null ? horseStats[r][l].split('/') : new Array());
+            for (var j = 0; j < bHorseNames.length; j++) {
+                if (j > 0)
+                    longBet.append('/');
+                if (isOverseaMeeting)
+                    longBet.append('(').append(bHorseCodes[j]).append(')');
+                longBet.append(bHorseNames[j]);
+                try {
+                    if (bHorseStats[j].indexOf('R') >= 0)
+                        longBet.append('(').append(reserveLbl).append(')');
+                } catch (e) { }
+                try {
+                    if (bHorseStats[j].indexOf('S') >= 0)
+                        longBet.append('(').append(scratchLbl).append(')');
+                } catch (e) { }
+            }
+        }
+        //longBet.append(indentStrEd);
+        longBet.append('+');
+    }
+    var longBetStr = longBet.toString();
+    return longBetStr.substring(0, longBetStr.length - 1);
 }
 
 function parseBanker(raceNo, betSel) {
@@ -2046,6 +2317,9 @@ function validateBet(pool, tableId, bankerNo, legNo, promptError) {
         case 'WIN':
         case 'PLA':
         case 'W-P':
+        case 'CWA':
+        case 'CWB':
+        case 'CWC':
         case 'DBL':
         case 'TBL':
         case '6UP':
@@ -2216,7 +2490,7 @@ function goPage(pool, page) {
     }
     combTable[pool].clearTable();
 
-    if (isPull || !isConnectedAMS || (pool != 'TRI' && pool != 'F-F' && pool != 'TCE')) {
+    if (isPull || !isConnectedAMS || (pool != 'TRI' && pool != 'F-F' && pool != 'TCE' && pool != 'QTT') || (typeof dataType != "undefined" && dataType == 'pre')) {
         combOddsLoadDocImp(pool);
     }
     else { //for odds push
@@ -2308,9 +2582,12 @@ var AMS = {
                 top.document.getElementById('betSlipFrame').contentWindow.CloseLogoutPopup();
             }
             top.status = "poll";
-            engine_frame.innerHTML = "";
+            //engine_frame.innerHTML = "";
             this.hadConnected = false;
-            window.location.href = window.location.href;
+            //window.location.href = window.location.href;
+            if (engineRef) {
+                engineRef.changeStatus("DISCONNECTED");
+            }
         }
     },
     Intermited: function() {
@@ -2358,6 +2635,10 @@ function refreshSellStatus(sellStat) {
             wpTableList[i].sellStatus = wpTableList[i].singleRace ? sellStat[wpTableList[i].firstLeg] : sellStat[i];
             wpTableList[i].setInnerTableHtml();
         }
+    }
+
+    if (typeof checkQttOddsEnqEnable == 'function') {
+        checkQttOddsEnqEnable();
     }
 
     if (isEditBetMode && typeof openEditOddsContent == 'function') {
