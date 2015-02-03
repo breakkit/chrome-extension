@@ -767,7 +767,55 @@ function allCombOddsRefresh(pool, tmpOdds) {
 }
 
 function allCombOddsRefreshQ(pool, tmpOdds) {
-    combTable[pool].haveOdds = false;
+
+    //Q odds object
+    function qOddsInfo(qOdds, qColor, coodX, coodY){
+        this.qOdds = qOdds;
+        this.qColor = qColor;
+        this.coodX = coodX;
+        this.coodY = coodY;
+    }
+
+    //Q odds obejct array
+    var arrQOddsInfo = new Array();
+
+    //win odds object
+    function winOddsInfo(horseID, winOdds, winColor){
+        this.horseID = horseID;
+        this.winOdds = winOdds;
+        this.winColor = winColor;
+
+        this.getHorseID = function(){ return this.horseID;}
+        this.getWinOdds = function(){ return this.winOdds;}
+        this.getWinColor = function(){ return this.winColor;}
+    }
+
+    var winPlaOdds = new Array();
+    for(var i = 1; i < winOddsByRace.length; i++){
+        if(winOddsByRace[i] != ""){
+            winPlaOdds = winOddsByRace[i].split('#');
+            break;
+        }
+    }
+    var winOdds = winPlaOdds[0].split(';');
+    var arrWinOddsInfo = new Array();
+    var arrQWinRatio = new Array();
+
+    function sort(a,b){
+        return a.winOdds - b.winOdds;
+    }
+
+    try{
+        for(var i = 1; i < winOdds.length; i++){
+            winOdds[i] = winOdds[i].split('=');
+            arrWinOddsInfo.push(new winOddsInfo(winOdds[i][0], winOdds[i][1], winOdds[i][2]));
+        }
+
+        var arrWinOddsInfoSorted = arrWinOddsInfo.slice(0);
+        // arrWinOddsInfoSorted = arrWinOddsInfo;
+        arrWinOddsInfoSorted.sort(sort);
+    
+        combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
         var nodes = tmpOdds[1].split(';');
@@ -783,10 +831,52 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 var y = parseInt(tmpSels[1], 10);
                 combTable[pool].qOdds[x][y] = tmpStr[1];
                 combTable[pool].qColorInd[x][y] = tmpStr[2];
+                arrQOddsInfo.push(new qOddsInfo(tmpStr[1], tmpStr[2], x, y));
+                arrQWinRatio.push(combTable[pool].qOdds[x][y] / (arrWinOddsInfo[x-1].winOdds * arrWinOddsInfo[y-1].winOdds));
                 combTable[pool].haveOdds = true;
+                // console.log("Color is "+combTable[pool].qColorInd[x][y]);
             }
         }
+
+    
+        console.log("Ratio : "+arrQWinRatio);
+        console.log(arrQOddsInfo);
+        var mostPossibleCombo = new Array();
+
+        function calculatedRatio(ratio, coodX, coodY){
+            this.ratio = ratio;
+            this.coodX = coodX;
+            this.coodY = coodY;
+        }
+
+        for(var j = 0; j < 3; j++){
+            for(var i = 0; i < arrQOddsInfo.length; i++){
+                // console.log(i,j);
+                if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j].horseID || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j].horseID){
+                    var ratio = arrQOddsInfo[i].qOdds / (arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds * arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds);
+                    mostPossibleCombo.push(new calculatedRatio(ratio, arrQOddsInfo[i].coodX, arrQOddsInfo[i].coodY));
+                }
+            }
+        }
+
+        mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
+        console.log(mostPossibleCombo);
+
+        for(var i = 0; i < 5; i++){
+            combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
+        }
+        
+
     }
+    // console.log("Win odds is @" + winPlaOdds[0]);
+    // console.log("Win odds after split " + winOdds);
+    console.log(arrWinOddsInfo);
+    console.log(arrWinOddsInfoSorted);
+    // console.log(arrWinOddsInfo);
+    }catch(e){
+        console.log(e);
+    }
+    // console.log("Win odds object is " arrWinOddsInfo);
 }
 
 function allCombOddsRefreshT(pool, tmpOdds) {
