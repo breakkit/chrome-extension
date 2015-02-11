@@ -770,6 +770,11 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     // console.log(tmpOdds);
     console.log(winOddsByRace);
     // console.log(pool);
+    var winPlaOdds = new Array();
+    winPlaOdds = winOddsByRace[2].split('#');
+    console.log(winPlaOdds);
+
+
     combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
