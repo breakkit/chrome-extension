@@ -1329,6 +1329,9 @@ function getOddsBgColor(ind) {
         case '3':
             col = od50Bg;
             break;
+        case '4':
+            col = '#FF8C00';
+            break;
         default:
             col = '';
     }
