@@ -787,7 +787,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 combTable[pool].qOdds[x][y] = tmpStr[1];
                 combTable[pool].qColorInd[x][y] = tmpStr[2];
                 combTable[pool].haveOdds = true;
-                console.log(combTable[pool].qOdds[x][y]);
+                console.log(x +'-' + y +':' +combTable[pool].qOdds[x][y]);
             }
         }
     }
