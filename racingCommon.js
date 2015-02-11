@@ -767,9 +767,9 @@ function allCombOddsRefresh(pool, tmpOdds) {
 }
 
 function allCombOddsRefreshQ(pool, tmpOdds) {
-    console.log(tmpOdds);
-    console.log(winOddsByRace);
-    console.log(pool);
+    // console.log(tmpOdds);
+    // console.log(winOddsByRace);
+    // console.log(pool);
     combTable[pool].haveOdds = false;
     if (tmpOdds[1] != null) {
         var nodeCnt = 1;
@@ -787,6 +787,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 combTable[pool].qOdds[x][y] = tmpStr[1];
                 combTable[pool].qColorInd[x][y] = tmpStr[2];
                 combTable[pool].haveOdds = true;
+                console.log(combTable[pool].qOdds[x][y]);
             }
         }
     }
