@@ -778,7 +778,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
 
     //Q odds obejct array
     var arrQOddsInfo = new Array();
-
+    //
     //win odds object
     function winOddsInfo(horseID, winOdds, winColor){
         this.horseID = horseID;
