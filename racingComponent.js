@@ -233,6 +233,7 @@ function RacingWPTable(rNo) {
   }
   
   this.setInnerTableHtml = function() {
+          console.log(this.winOdds);
       if (document.getElementById(this.id + 'InnerTable') != null) {
           document.getElementById(this.id + 'InnerTable').innerHTML = this.generateInnerTable();
 	  }
@@ -1310,7 +1311,6 @@ function JTComboChildTable(rNo) {
       }
 
       // win odds
-      console.log(this.winOdds);
       if ( this.winOdds[i]=='SCR' || this.tableObj[i][0].hScr=='1' )
         buf.append('<nobr>').append(scratchLbl).append('</nobr>');
       else if ( this.winOdds[i]!=null && this.startSell==1 && this.sellStatus.indexOf('WIN')>=0 )
