@@ -419,7 +419,7 @@ function RacingWPTable(rNo) {
              .append(getOddsBgColor(this.winColorInd[i]))
              .append('">').append(this.winOdds[i]).append('&nbsp</span>')
              //test
-             .append('<span style="background-color: red; display: block; height: 10px; width: 10px"></span>');
+             .append('<span style="background-color: red; display: block; height: 20px; width: 5px"></span>');
              //test
           buf.append('</td>');
 
