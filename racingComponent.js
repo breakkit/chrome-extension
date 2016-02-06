@@ -417,11 +417,11 @@ function RacingWPTable(rNo) {
               buf.append('<span class="wpTdColor" style="color:')
              .append(getOddsFgColor(this.winColorInd[i])).append(';background-color:')
              .append(getOddsBgColor(this.winColorInd[i]))
-             .append('">').append(this.winOdds[i]).append('&nbsp</span>');
+             .append('">').append(this.winOdds[i]).append('&nbsp</span>')
+             //test
+             .append('<span style="background-color: red; display: block; height: 10px; width: 10px"></span>');
+             //test
           buf.append('</td>');
-
-          //test
-          buf.append('<span style="background-color: red; display: block; height: 30px; width: 30px"></span>');
 
           // place odds
           if (this.enablePla) {
