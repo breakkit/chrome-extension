@@ -839,8 +839,8 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         }
 
     
-        console.log("Ratio : "+arrQWinRatio);
-        console.log(arrQOddsInfo);
+        // console.log("Ratio : "+arrQWinRatio);
+        // console.log(arrQOddsInfo);
         var mostPossibleCombo = new Array();
 
         function calculatedRatio(ratio, coodX, coodY){
@@ -860,7 +860,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         }
 
         mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
-        console.log(mostPossibleCombo);
+        // console.log(mostPossibleCombo);
 
         for(var i = 0; i < 5; i++){
             combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
@@ -870,8 +870,8 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
     }
     // console.log("Win odds is @" + winPlaOdds[0]);
     // console.log("Win odds after split " + winOdds);
-    console.log(arrWinOddsInfo);
-    console.log(arrWinOddsInfoSorted);
+    // console.log(arrWinOddsInfo);
+    // console.log(arrWinOddsInfoSorted);
     // console.log(arrWinOddsInfo);
     }catch(e){
         console.log(e);
