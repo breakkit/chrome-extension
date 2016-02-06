@@ -233,7 +233,7 @@ function RacingWPTable(rNo) {
   }
   
   this.setInnerTableHtml = function() {
-          console.log(this.winOdds[0]);
+          console.log(this.winOdds[1]);
       if (document.getElementById(this.id + 'InnerTable') != null) {
           document.getElementById(this.id + 'InnerTable').innerHTML = this.generateInnerTable();
 	  }
