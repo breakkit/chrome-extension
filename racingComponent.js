@@ -420,6 +420,9 @@ function RacingWPTable(rNo) {
              .append('">').append(this.winOdds[i]).append('&nbsp</span>');
           buf.append('</td>');
 
+          //test
+          buf.append('<span style="background-color: red; display: block; height: 30px; width: 30px"></span>');
+
           // place odds
           if (this.enablePla) {
               buf.append('<td class="').append(tbStyle[i % 2]).append(" info_cell").append('" align="center" style="')
