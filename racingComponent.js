@@ -1310,6 +1310,7 @@ function JTComboChildTable(rNo) {
       }
 
       // win odds
+      console.log(this.winOdds);
       if ( this.winOdds[i]=='SCR' || this.tableObj[i][0].hScr=='1' )
         buf.append('<nobr>').append(scratchLbl).append('</nobr>');
       else if ( this.winOdds[i]!=null && this.startSell==1 && this.sellStatus.indexOf('WIN')>=0 )
