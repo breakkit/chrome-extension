@@ -531,6 +531,7 @@ function RacingWPTable(rNo) {
                         return a - b;
                     });
                     console.log(this.winOdds);
+                    //fdsfs
                     //test
                     // place odds
                     if (this.enablePla) {
