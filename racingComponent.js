@@ -309,6 +309,20 @@ function RacingWPTable(rNo) {
         }
         return legName;
     };
+    this.bubbleSort = function(a) {
+        var swapped;
+        do {
+            swapped = false;
+            for (var i = 0; i < a.length - 1; i++) {
+                if (a[i] > a[i + 1]) {
+                    var temp = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+        } while (swapped);
+    }
     this.generateInnerTable = function() {
         /*
         if (winOddsTableDisplay && winOddsTableNo == this.raceNo) {
@@ -528,9 +542,7 @@ function RacingWPTable(rNo) {
                     buf.append('</td>');
                     //test
                     var sortedWinOdds = this.winOdds;
-                    sortedWinOdds.sort(function(a, b) {
-                        return a - b;
-                    });
+                    this.bubbleSort(sortedWinOdds);
                     console.log(sortedWinOdds);
                     console.log('===============================');
                     console.log(this.winOdds);
