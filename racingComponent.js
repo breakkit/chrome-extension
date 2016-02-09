@@ -544,6 +544,8 @@ function RacingWPTable(rNo) {
                     var sortedWinOdds = new Array();
                     sortedWinOdds = this.winOdds;
                     this.bubbleSort(sortedWinOdds);
+                    console.log(typeof(this.winOdds));
+                    console.log(typeof(sortedWinOdds));
                     console.log(sortedWinOdds);
                     console.log('===============================');
                     console.log(this.winOdds);
