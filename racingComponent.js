@@ -528,7 +528,7 @@ function RacingWPTable(rNo) {
                     buf.append('</td>');
                     //test
 
-                    
+                    console.log(this.winOdds);
                     //test
                     // place odds
                     if (this.enablePla) {
