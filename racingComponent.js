@@ -553,8 +553,8 @@ function RacingWPTable(rNo) {
                       return a - b;
                     });
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
-                    for (var i = 1; i < 7; i++) {
-                      sortedWinOdds[i].color = colorArray[i];
+                    for (var j = 1; j < 7; j++) {
+                      sortedWinOdds[j].color = colorArray[j];
                     }
                     var aaa = new Array();
                     console.log(typeof(aaa));
