@@ -541,7 +541,8 @@ function RacingWPTable(rNo) {
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
                     buf.append('</td>');
                     //test
-                    var sortedWinOdds = this.winOdds;
+                    var sortedWinOdds = new Array();
+                    sortedWinOdds = this.winOdds;
                     this.bubbleSort(sortedWinOdds);
                     console.log(sortedWinOdds);
                     console.log('===============================');
