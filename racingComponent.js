@@ -422,7 +422,7 @@ function RacingWPTable(rNo) {
              //test
              winOdds.sort(function (a, b){return a - b;});
              console.log(winOdds);
-          buf.append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>');
+          // buf.append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>');
              //test
           buf.append('</td>');
 
