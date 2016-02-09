@@ -323,6 +323,12 @@ function RacingWPTable(rNo) {
             }
         } while (swapped);
     }
+    this.clone = function(obj) {
+        if (obj == null || typeof(obj) != 'object') return obj;
+        var temp = new obj.constructor();
+        for (var key in obj) temp[key] = clone(obj[key]);
+        return temp;
+    }
     this.generateInnerTable = function() {
         /*
         if (winOddsTableDisplay && winOddsTableNo == this.raceNo) {
@@ -541,8 +547,7 @@ function RacingWPTable(rNo) {
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
                     buf.append('</td>');
                     //test
-                    var sortedWinOdds = new Array();
-                    sortedWinOdds = this.winOdds;
+                    var sortedWinOdds = this.clone(this.winOdds);
                     this.bubbleSort(sortedWinOdds);
                     console.log(typeof(this.winOdds));
                     console.log(typeof(sortedWinOdds));
