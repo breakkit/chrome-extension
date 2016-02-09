@@ -551,7 +551,13 @@ function RacingWPTable(rNo) {
                     //this.bubbleSort(this.winOdds);
                     sortedWinOdds.sort(function (a, b){
                       return a - b;
-                    })
+                    });
+                    var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
+                    for (var i = 1; i < 7; i++) {
+                      sortedWinOdds[i].color = colorArray[i];
+                    }
+                    var aaa = new Array();
+                    console.log(typeof(aaa));
                     console.log(typeof(this.winOdds));
                     console.log(typeof(sortedWinOdds));
                     console.log(sortedWinOdds);
