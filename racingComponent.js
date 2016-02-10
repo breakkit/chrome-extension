@@ -10,6 +10,7 @@ function horse(horseNo, winOdd, color) {
     this.horseNo = horseNo;
     this.winOdds = winOdds;
     this.color = color;
+    console.log(this.horseNo);
 }
 
 function unloadRacingComponent() {
