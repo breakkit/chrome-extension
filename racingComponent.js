@@ -547,16 +547,17 @@ function RacingWPTable(rNo) {
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
                     buf.append('</td>');
                     //test
-                    var sortedWinOdds = this.clone(this.winOdds);
+                    var unSortedWinOdds = this.clone(this.winOdds);
+                    var sortedWinOdds = new Array();
                     //this.bubbleSort(this.winOdds);
-                    sortedWinOdds.sort(function (a, b){
+                    unSortedWinOdds.sort(function (a, b){
                       return a - b;
                     });
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
                     for (var j = 1; j < 7; j++) {
-                      sortedWinOdds[sortedWinOdds[j]] = colorArray[j];
+                      sortedWinOdds[unSortedWinOdds[j]] = colorArray[j];
                     }
-                    console.log(sortedWinOdds);
+                    console.log(unSortedWinOdds);
                     console.log('===============================');
                     console.log(this.winOdds);
                     //test
