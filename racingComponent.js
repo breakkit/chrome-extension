@@ -554,17 +554,14 @@ function RacingWPTable(rNo) {
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
                     buf.append('</td>');
                     //test
-                    var horseArray = new Array();
-                    // for (var key in this.winOdds) horseArray.push(new horse(key, this.winOdds[key], ""));
-                    // var sortedWinOdds = this.clone(this.winOdds);
-                    // sortedWinOdds.sort(function (a, b){
-                    //   return a - b;
-                    // });
+                    var sortedWinOdds = this.clone(this.winOdds);
+                    sortedWinOdds.sort(function (a, b){
+                      console.log(a + " -  " + b);
+                      return a - b;
+                    });
+
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
-                    // console.log(sortedWinOdds);
-                    console.log(horseArray.winOdds);
-                    console.log('===============================');
-                    console.log(this.winOdds);
+
                     //test
                     // place odds
                     if (this.enablePla) {
