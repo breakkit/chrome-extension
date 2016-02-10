@@ -560,6 +560,8 @@ function RacingWPTable(rNo) {
                       return a - b;
                     });
 
+                    console.log('====================================');
+
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
 
                     //test
