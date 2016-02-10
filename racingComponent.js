@@ -560,7 +560,7 @@ function RacingWPTable(rNo) {
                     // });
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
                     // console.log(sortedWinOdds);
-                    console.log(horseArray);
+                    console.log(horseArray.winOdds);
                     console.log('===============================');
                     console.log(this.winOdds);
                     //test
