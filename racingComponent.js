@@ -6,6 +6,12 @@ var ranGenFlag = 0;
 var arrSize = 25;
 //var winOddsTableDisplay = false;
 //var winOddsTableNo = 0;
+function horse(horseNo, winOdd, color) {
+    this.horseNo = horseNo;
+    this.winOdds = winOdds;
+    this.color = color;
+}
+
 function unloadRacingComponent() {
     try {
         tbStyle = null;
@@ -328,11 +334,6 @@ function RacingWPTable(rNo) {
         var temp = new obj.constructor();
         for (var key in obj) temp[key] = this.clone(obj[key]);
         return temp;
-    }
-    function horse (horseNo, winOdd, color) {
-      this.horseNo = horseNo;
-      this.winOdds = winOdds;
-      this.color = color;
     }
     this.generateInnerTable = function() {
         /*
