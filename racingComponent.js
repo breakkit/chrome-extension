@@ -581,6 +581,7 @@ function RacingWPTable(rNo) {
                     console.log(indexArray);
 
                     console.log('====================================');
+                    console.log(sortedWinOdds);
 
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
 
