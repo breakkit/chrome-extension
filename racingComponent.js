@@ -329,6 +329,11 @@ function RacingWPTable(rNo) {
         for (var key in obj) temp[key] = this.clone(obj[key]);
         return temp;
     }
+    this.horse = function (horseNo, winOdd, color) {
+      this.horseNo = horseNo;
+      this.winOdds = winOdds;
+      this.color = color;
+    }
     this.generateInnerTable = function() {
         /*
         if (winOddsTableDisplay && winOddsTableNo == this.raceNo) {
@@ -547,18 +552,15 @@ function RacingWPTable(rNo) {
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
                     buf.append('</td>');
                     //test
-                    var unSortedWinOdds = this.clone(this.winOdds);
-                    var sortedWinOdds = new Array();
-                    //this.bubbleSort(this.winOdds);
-                    unSortedWinOdds.sort(function (a, b){
-                      return a - b;
-                    });
+                    var horseArray = new Array();
+                    for (var key in this.winOdds) horseArray.push(key, this.winOdds[key], "");
+                    // var sortedWinOdds = this.clone(this.winOdds);
+                    // sortedWinOdds.sort(function (a, b){
+                    //   return a - b;
+                    // });
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
-                    for (var j = 1; j < 7; j++) {
-                      sortedWinOdds[unSortedWinOdds[j]] = colorArray[j];
-                      console.log(j);
-                    }
-                    console.log(unSortedWinOdds);
+                    // console.log(sortedWinOdds);
+                    console.log(horseArray);
                     console.log('===============================');
                     console.log(this.winOdds);
                     //test
