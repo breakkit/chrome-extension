@@ -573,7 +573,7 @@ function RacingWPTable(rNo) {
                     //test
                     var sortedWinOdds = this.clone(this.winOdds);
                     var indexArray = new Array(this.winOdds.length);
-                    for (var j = 1; j <= this.winOdds.length; j++) {
+                    for (var j = 1; j <= this.winOdds.length && indexArray[j] != ""; j++) {
                       indexArray[j] = j;
                     }
                     
