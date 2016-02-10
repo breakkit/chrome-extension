@@ -25,7 +25,7 @@ Array.prototype.insertion_sort = function(indexArray) {
       indexArray[j + 1] = indexArray[j];
     }
     this[j + 1] = temp;
-    indexArray[j + 1] = temp;
+    indexArray[j + 1] = indexTemp;
   }
   return this;
 };
