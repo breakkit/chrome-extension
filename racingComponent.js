@@ -556,6 +556,7 @@ function RacingWPTable(rNo) {
                     //test
                     var sortedWinOdds = this.clone(this.winOdds);
                     sortedWinOdds.sort(function (a, b){
+                      console.log(sortedWinOdds);
                       console.log(a + " -  " + b);
                       return a - b;
                     });
