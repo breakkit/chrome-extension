@@ -556,6 +556,7 @@ function RacingWPTable(rNo) {
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
                     for (var j = 1; j < 7; j++) {
                       sortedWinOdds[unSortedWinOdds[j]] = colorArray[j];
+                      console.log(j);
                     }
                     console.log(unSortedWinOdds);
                     console.log('===============================');
