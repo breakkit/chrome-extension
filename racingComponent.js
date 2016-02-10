@@ -555,7 +555,7 @@ function RacingWPTable(rNo) {
                     buf.append('</td>');
                     //test
                     var horseArray = new Array();
-                    for (var key in this.winOdds) horseArray.push(new horse(key, this.winOdds[key], ""));
+                    // for (var key in this.winOdds) horseArray.push(new horse(key, this.winOdds[key], ""));
                     // var sortedWinOdds = this.clone(this.winOdds);
                     // sortedWinOdds.sort(function (a, b){
                     //   return a - b;
