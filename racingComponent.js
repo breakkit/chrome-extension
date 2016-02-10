@@ -13,6 +13,23 @@ function horse(horseNo, winOdd, color) {
     console.log(this.horseNo);
 }
 
+Array.prototype.insertion_sort = function(indexArray) {
+  var i, j;
+  var temp;
+  var indexTemp;
+  for (i = 1; i < this.length; i++) {
+    temp = this[i];
+    indexTemp = indexArray[i];
+    for (j = i - 1; j >= 0 && this[j] > temp; j--) {
+      this[j + 1] = this[j];
+      indexArray[j + 1] = indexArray[j];
+    }
+    this[j + 1] = temp;
+    indexArray[j + 1] = temp;
+  }
+  return this;
+};
+
 function unloadRacingComponent() {
     try {
         tbStyle = null;
@@ -555,12 +572,13 @@ function RacingWPTable(rNo) {
                     buf.append('</td>');
                     //test
                     var sortedWinOdds = this.clone(this.winOdds);
-                    sortedWinOdds.sort(function (a, b){
-                      console.log(this.winOdds);
-                      console.log(sortedWinOdds);
-                      console.log(a + " -  " + b);
-                      return a - b;
-                    });
+                    var indexArray = new Array(this.winOdds.length);
+                    for (var j = 1; j <= this.winOdds.length; j++) {
+                      indexArray[j] = j;
+                    }
+                    
+                    sortedWinOdds.insertion_sort(indexArray);
+                    console.log(indexArray);
 
                     console.log('====================================');
 
