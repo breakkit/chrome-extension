@@ -20,7 +20,7 @@ Array.prototype.insertion_sort = function(indexArray) {
   for (i = 2; i < this.length; i++) {
     temp = this[i];
     indexTemp = indexArray[i];
-    for (j = i - 1; j >= 0 && this[j] > temp; j--) {
+    for (j = i - 1; j >= 0 && parseInt(this[j], 10) > parseInt(temp, 10); j--) {
       this[j + 1] = this[j];
       indexArray[j + 1] = indexArray[j];
     }
