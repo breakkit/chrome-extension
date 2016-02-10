@@ -17,7 +17,7 @@ Array.prototype.insertion_sort = function(indexArray) {
   var i, j;
   var temp;
   var indexTemp;
-  for (i = 1; i < this.length; i++) {
+  for (i = 2; i < this.length; i++) {
     temp = this[i];
     indexTemp = indexArray[i];
     for (j = i - 1; j >= 0 && this[j] > temp; j--) {
