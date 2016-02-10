@@ -583,10 +583,10 @@ function RacingWPTable(rNo) {
                     console.log('====================================');
                     console.log(sortedWinOdds);
 
-                    var colorArray = ['red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
+                    var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
 
                     var horseColorArray = new Array();
-                    for (var q = 0; q < 6; q++) {
+                    for (var q = 1; q < 7; q++) {
                       for (var w = 1; w < indexArray.length; w++) {
                         if (indexArray[w] == q) horseColorArray.push(colorArray[q])
                           else horseColorArray.push("");
