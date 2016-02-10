@@ -554,12 +554,8 @@ function RacingWPTable(rNo) {
                     });
                     var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
                     for (var j = 1; j < 7; j++) {
-                      sortedWinOdds[j].color = colorArray[j];
+                      sortedWinOdds[sortedWinOdds[j]] = colorArray[j];
                     }
-                    var aaa = new Array();
-                    console.log(typeof(aaa));
-                    console.log(typeof(this.winOdds));
-                    console.log(typeof(sortedWinOdds));
                     console.log(sortedWinOdds);
                     console.log('===============================');
                     console.log(this.winOdds);
