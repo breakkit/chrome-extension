@@ -588,7 +588,10 @@ function RacingWPTable(rNo) {
                     var horseColorArray = new Array();
                     for (var q = 1; q < 7; q++) {
                       for (var w = 1; w < indexArray.length; w++) {
-                        if (indexArray[w] == q && horseColorArray[w] == null) horseColorArray[w] = colorArray[q]
+                        if (indexArray[w] == q && horseColorArray[w] == null) {
+                          horseColorArray[w] = colorArray[q];
+                          break;
+                        }
                           else horseColorArray[w] = "";
                       }
                     }
