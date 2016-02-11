@@ -571,6 +571,7 @@ function RacingWPTable(rNo) {
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
                     buf.append('</td>');
                     //test
+                    this.winOdds = {1:'6.6', 2:'123', 3:'291', 4:'5.1', 5:'7.8', 6:'100', 7:'90', 8:'80', 9:'70', 10:'60', 11:'50', 12:'40'}
                     var sortedWinOdds = this.clone(this.winOdds);
                     var indexArray = new Array(this.winOdds.length);
                     for (var j = 1; j <= this.winOdds.length && this.winOdds[j] != null; j++) {
