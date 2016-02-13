@@ -590,7 +590,7 @@ function RacingWPTable(rNo) {
                     for (var q = 1; q < 7; q++) {
                       for (var w = 1; w < indexArray.length; w++) {
                         console.log(horseColorArray[w]);
-                        if (indexArray[w] == q && horseColorArray[w] == null) {
+                        if (indexArray[w] == q && horseColorArray[w] == 'undefined') {
                           horseColorArray[w] = colorArray[q];
                           break;
                         }
