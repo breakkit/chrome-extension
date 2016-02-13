@@ -558,24 +558,23 @@ function RacingWPTable(rNo) {
                     }
                     buf.append('</div></td>');
                 }
-                //test
+
+                //hightlight top 6 hot
                 var sortedWinOdds = this.clone(this.winOdds);
                 var indexArray = new Array(sortedWinOdds.length);
                 for (var j = 1; j <= this.winOdds.length && this.winOdds[j] != null; j++) {
                     indexArray[j] = j;
                 }
                 sortedWinOdds.insertion_sort(indexArray);
-                console.log(indexArray);
-                console.log('====================================');
-                console.log(sortedWinOdds);
+
                 var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
                 var horseColorArray = new Array(sortedWinOdds.length);
                 horseColorArray.fill("");
                 for (var q = 1; q < 7; q++) {
                     horseColorArray[indexArray[q]] = colorArray[q];
                 }
-                console.log(horseColorArray);
-                //test
+                //hightlight top 6 hot
+
                 // prevent showing hf when ---
                 if (!isNumericDash(this.winOdds[i])) this.winColorInd[i] = 0;
                 if (this.showOdd) {
