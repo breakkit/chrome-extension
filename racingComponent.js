@@ -560,7 +560,7 @@ function RacingWPTable(rNo) {
                 }
                 //test
                 var sortedWinOdds = this.clone(this.winOdds);
-                var indexArray = new Array(this.winOdds.length);
+                var indexArray = new Array(sortedWinOdds.length);
                 for (var j = 1; j <= this.winOdds.length && this.winOdds[j] != null; j++) {
                     indexArray[j] = j;
                 }
@@ -572,12 +572,7 @@ function RacingWPTable(rNo) {
                 var horseColorArray = new Array(sortedWinOdds.length);
                 horseColorArray.fill("");
                 for (var q = 1; q < 7; q++) {
-                    for (var w = 1; w < indexArray.length; w++) {
-                        if (indexArray[w] == q && horseColorArray[w] == "") {
-                            horseColorArray[w] = colorArray[q];
-                            break;
-                        }
-                    }
+                    horseColorArray[indexArray[q]] = colorArray[q];
                 }
                 console.log(horseColorArray);
                 //test
