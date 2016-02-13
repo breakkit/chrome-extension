@@ -597,10 +597,7 @@ function RacingWPTable(rNo) {
                       }
                     }
                     console.log(horseColorArray);
-
-                    var horseDetailLink = $("a[href*='http://www.hkjc.com/chinese/racing/horse.asp']");
-                    console.log(horseDetailLink);
-
+                    
                     //test
                     // place odds
                     if (this.enablePla) {
