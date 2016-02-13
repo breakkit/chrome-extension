@@ -569,6 +569,7 @@ function RacingWPTable(rNo) {
                     else if (isBracketReserveOrScratch(this.tableObj[i])) buf.append('<span class="wpTdColor"><nobr>---</nobr></span>');
                     else if (this.winOdds[i] != null && ranRace < this.firstLeg && this.startSell == 1 && this.sellStatus.indexOf('WIN') >= 0) buf.append('<a class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('" href="javascript:processQuickBet(\'WIN\', \'' + this.raceNo + '\', ' + i + ')">' + this.winOdds[i] + '</a>');
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
+                    buf.append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>');
                     buf.append('</td>');
                     //test
 
@@ -588,7 +589,6 @@ function RacingWPTable(rNo) {
 
                     var horseColorArray = new Array(sortedWinOdds.length);
                     horseColorArray.fill("");
-                    horseColorArray[0] = null;
                     for (var q = 1; q < 7; q++) {
                       for (var w = 1; w < indexArray.length; w++) {
                         if (indexArray[w] == q && horseColorArray[w] == "") {
