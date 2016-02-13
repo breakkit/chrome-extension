@@ -595,7 +595,6 @@ function RacingWPTable(rNo) {
                           horseColorArray[w] = colorArray[q];
                           break;
                         }
-                          else horseColorArray[w] = "";
                       }
                     }
                     console.log(horseColorArray);
