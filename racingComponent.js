@@ -12,22 +12,21 @@ function horse(horseNo, winOdd, color) {
     this.color = color;
     console.log(this.horseNo);
 }
-
 Array.prototype.insertion_sort = function(indexArray) {
-  var i, j;
-  var temp;
-  var indexTemp;
-  for (i = 2; i < this.length; i++) {
-    temp = this[i];
-    indexTemp = indexArray[i];
-    for (j = i - 1; j >= 0 && parseInt(this[j], 10) > parseInt(temp, 10); j--) {
-      this[j + 1] = this[j];
-      indexArray[j + 1] = indexArray[j];
+    var i, j;
+    var temp;
+    var indexTemp;
+    for (i = 2; i < this.length; i++) {
+        temp = this[i];
+        indexTemp = indexArray[i];
+        for (j = i - 1; j >= 0 && parseInt(this[j], 10) > parseInt(temp, 10); j--) {
+            this[j + 1] = this[j];
+            indexArray[j + 1] = indexArray[j];
+        }
+        this[j + 1] = temp;
+        indexArray[j + 1] = indexTemp;
     }
-    this[j + 1] = temp;
-    indexArray[j + 1] = indexTemp;
-  }
-  return this;
+    return this;
 };
 
 function unloadRacingComponent() {
@@ -559,6 +558,29 @@ function RacingWPTable(rNo) {
                     }
                     buf.append('</div></td>');
                 }
+                //test
+                var sortedWinOdds = this.clone(this.winOdds);
+                var indexArray = new Array(this.winOdds.length);
+                for (var j = 1; j <= this.winOdds.length && this.winOdds[j] != null; j++) {
+                    indexArray[j] = j;
+                }
+                sortedWinOdds.insertion_sort(indexArray);
+                console.log(indexArray);
+                console.log('====================================');
+                console.log(sortedWinOdds);
+                var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
+                var horseColorArray = new Array(sortedWinOdds.length);
+                horseColorArray.fill("");
+                for (var q = 1; q < 7; q++) {
+                    for (var w = 1; w < indexArray.length; w++) {
+                        if (indexArray[w] == q && horseColorArray[w] == "") {
+                            horseColorArray[w] = colorArray[q];
+                            break;
+                        }
+                    }
+                }
+                console.log(horseColorArray);
+                //test
                 // prevent showing hf when ---
                 if (!isNumericDash(this.winOdds[i])) this.winColorInd[i] = 0;
                 if (this.showOdd) {
@@ -569,37 +591,8 @@ function RacingWPTable(rNo) {
                     else if (isBracketReserveOrScratch(this.tableObj[i])) buf.append('<span class="wpTdColor"><nobr>---</nobr></span>');
                     else if (this.winOdds[i] != null && ranRace < this.firstLeg && this.startSell == 1 && this.sellStatus.indexOf('WIN') >= 0) buf.append('<a class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('" href="javascript:processQuickBet(\'WIN\', \'' + this.raceNo + '\', ' + i + ')">' + this.winOdds[i] + '</a>');
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
-                    buf.append('<span style="background-color: '+ horseColorArray[i] +'; display: block; height: 5px; width: 20px"></span>');
+                    buf.append('<span style="background-color: ' + horseColorArray[i] + '; display: block; height: 5px; width: 20px"></span>');
                     buf.append('</td>');
-                    //test
-
-                    var sortedWinOdds = this.clone(this.winOdds);
-                    var indexArray = new Array(this.winOdds.length);
-                    for (var j = 1; j <= this.winOdds.length && this.winOdds[j] != null; j++) {
-                      indexArray[j] = j;
-                    }
-                    
-                    sortedWinOdds.insertion_sort(indexArray);
-                    console.log(indexArray);
-
-                    console.log('====================================');
-                    console.log(sortedWinOdds);
-
-                    var colorArray = ['', 'red', 'orange', 'yellow', 'green', '#44F5E8', 'blue'];
-
-                    var horseColorArray = new Array(sortedWinOdds.length);
-                    horseColorArray.fill("");
-                    for (var q = 1; q < 7; q++) {
-                      for (var w = 1; w < indexArray.length; w++) {
-                        if (indexArray[w] == q && horseColorArray[w] == "") {
-                          horseColorArray[w] = colorArray[q];
-                          break;
-                        }
-                      }
-                    }
-                    console.log(horseColorArray);
-
-                    //test
                     // place odds
                     if (this.enablePla) {
                         if (!isNumericDash(this.plaOdds[i])) this.plaColorInd[i] = 0;
