@@ -585,8 +585,11 @@ function RacingWPTable(rNo) {
                     else if (isBracketReserveOrScratch(this.tableObj[i])) buf.append('<span class="wpTdColor"><nobr>---</nobr></span>');
                     else if (this.winOdds[i] != null && ranRace < this.firstLeg && this.startSell == 1 && this.sellStatus.indexOf('WIN') >= 0) buf.append('<a class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('" href="javascript:processQuickBet(\'WIN\', \'' + this.raceNo + '\', ' + i + ')">' + this.winOdds[i] + '</a>');
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
+                    //hightlight top 6 hot
                     buf.append('<span style="background-color: ' + horseColorArray[i] + '; display: block; height: 5px; width: 20px"></span>');
                     buf.append('</td>');
+                    //hightlight top 6 hot
+
                     // place odds
                     if (this.enablePla) {
                         if (!isNumericDash(this.plaOdds[i])) this.plaColorInd[i] = 0;
@@ -1708,6 +1711,7 @@ function MultiLegTable(rNo) {
         else return replaceStr;
     }
     this.generateTableQ = function() {
+        console.log(this.qOdds);
         var allRefund = true;
         if (!this.haveOdds) {
             allRefund = false;
