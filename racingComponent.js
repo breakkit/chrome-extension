@@ -559,7 +559,7 @@ function RacingWPTable(rNo) {
                     buf.append('</div></td>');
                 }
 
-                //hightlight top 6 hot
+                //highlight top 6 hot
                 var sortedWinOdds = this.clone(this.winOdds);
                 var indexArray = new Array(sortedWinOdds.length);
                 for (var j = 1; j <= this.winOdds.length && this.winOdds[j] != null; j++) {
@@ -573,7 +573,7 @@ function RacingWPTable(rNo) {
                 for (var q = 1; q < 7; q++) {
                     horseColorArray[indexArray[q]] = colorArray[q];
                 }
-                //hightlight top 6 hot
+                //highlight top 6 hot
 
                 // prevent showing hf when ---
                 if (!isNumericDash(this.winOdds[i])) this.winColorInd[i] = 0;
@@ -585,10 +585,10 @@ function RacingWPTable(rNo) {
                     else if (isBracketReserveOrScratch(this.tableObj[i])) buf.append('<span class="wpTdColor"><nobr>---</nobr></span>');
                     else if (this.winOdds[i] != null && ranRace < this.firstLeg && this.startSell == 1 && this.sellStatus.indexOf('WIN') >= 0) buf.append('<a class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('" href="javascript:processQuickBet(\'WIN\', \'' + this.raceNo + '\', ' + i + ')">' + this.winOdds[i] + '</a>');
                     else buf.append('<span class="wpTdColor" style="color:').append(getOddsFgColor(this.winColorInd[i])).append(';background-color:').append(getOddsBgColor(this.winColorInd[i])).append('">').append(this.winOdds[i]).append('&nbsp</span>');
-                    //hightlight top 6 hot
+                    //highlight top 6 hot
                     buf.append('<span style="background-color: ' + horseColorArray[i] + '; display: block; height: 5px; width: 20px"></span>');
                     buf.append('</td>');
-                    //hightlight top 6 hot
+                    //highlight top 6 hot
 
                     // place odds
                     if (this.enablePla) {
@@ -1711,7 +1711,7 @@ function MultiLegTable(rNo) {
         else return replaceStr;
     }
     this.generateTableQ = function() {
-        
+
         var allRefund = true;
         if (!this.haveOdds) {
             allRefund = false;
@@ -1791,7 +1791,7 @@ function MultiLegTable(rNo) {
                 }
                 buf.append('</td>');
             }
-            buf.append('<td align="center" width="18" class="tdColorNum1" style="border-right:1px solid #dddcdc;border-bottom:1px solid #dddcdc;">').append(y).append('</td>');
+            buf.append('<td align="center" width="18" class="tdColorNum1" style="border-right:1px solid #dddcdc;border-bottom:1px solid #dddcdc;">').append(y).append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>').append('</td>');
             buf.append('</tr>');
         }console.log(this.qOdds);
         if (this.qFieldSize > 14) buf.append(this.generateTableQ24());
