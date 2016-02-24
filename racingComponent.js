@@ -1787,11 +1787,11 @@ function MultiLegTable(rNo) {
                     else if (this.qOdds[y][j] == 'SCR' || (n1 && s2) || (n2 && s1) || (n1 && sr2) || (n2 && sr1) || (s1 && sr2) || (s2 && sr1) || (s1 && s2) || (sr1 && sr2)) buf.append(scratch2Lbl);
                     else if (r1 || r2) buf.append('-');
                     else if (this.qOdds[y][j] != null && ranRace < this.raceNo && this.startSell) buf.append('<a class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[y][j])).append(';background-color:').append(getOddsBgColor(this.qColorInd[y][j])).append('" href="javascript:processQuickBet(\'').append(this.selectPool).append('\', \'' + this.raceNo + '\', \'' + y + '-' + j + '\')">' + this.qOdds[y][j] + '</a>');
-                    else buf.append('<span class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[y][j])).append(';background-color:').append(getOddsBgColor(this.qColorInd[y][j])).append('">').append(this.qOdds[y][j]).append('</span>');
+                    else buf.append('<span class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[y][j])).append(';background-color:').append(getOddsBgColor(this.qColorInd[y][j])).append('">').append(this.qOdds[y][j]).append('</span>').append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>');
                 }
                 buf.append('</td>');
             }
-            buf.append('<td align="center" width="18" class="tdColorNum1" style="border-right:1px solid #dddcdc;border-bottom:1px solid #dddcdc;">').append(y).append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>').append('</td>');
+            buf.append('<td align="center" width="18" class="tdColorNum1" style="border-right:1px solid #dddcdc;border-bottom:1px solid #dddcdc;">').append(y).append('</td>');
             buf.append('</tr>');
         }console.log(this.qOdds);
         if (this.qFieldSize > 14) buf.append(this.generateTableQ24());
