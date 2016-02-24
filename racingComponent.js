@@ -1758,7 +1758,7 @@ function MultiLegTable(rNo) {
                     if (allRefund) buf.append('<span class="wpTdColor"><nobr>---</nobr></span>');
                     else if (this.qOdds[j][x] == 'SCR' || (n1 && s2) || (n2 && s1) || (n1 && sr2) || (n2 && sr1) || (s1 && sr2) || (s2 && sr1) || (s1 && s2) || (sr1 && sr2)) buf.append(scratch2Lbl);
                     else if (r1 || r2) buf.append('-');
-                    else if (this.qOdds[j][x] != null && ranRace < this.raceNo && this.startSell) buf.append('<a class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[j][x])).append(';background-color:').append(getOddsBgColor(this.qColorInd[j][x])).append('" href="javascript:processQuickBet(\'').append(this.selectPool).append('\', \'' + this.raceNo + '\', \'' + j + '-' + x + '\')">' + this.qOdds[j][x] + '</a>');
+                    else if (this.qOdds[j][x] != null && ranRace < this.raceNo && this.startSell) buf.append('<a class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[j][x])).append(';background-color:').append(getOddsBgColor(this.qColorInd[j][x])).append('" href="javascript:processQuickBet(\'').append(this.selectPool).append('\', \'' + this.raceNo + '\', \'' + j + '-' + x + '\')">' + this.qOdds[j][x] + '</a>').append('</span>').append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>');
                     else buf.append('<span class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[j][x])).append(';background-color:').append(getOddsBgColor(this.qColorInd[j][x])).append('">').append(this.qOdds[j][x]).append('</span>');
                 }
                 buf.append('</td>');
@@ -1781,9 +1781,7 @@ function MultiLegTable(rNo) {
                     var sr2 = s2 && r2;
                     var n1 = !s1 && !r1;
                     var n2 = !s2 && !r2;
-                    console.log(s1);
-                    console.log(r1);
-                    console.log(sr1);
+
                     // prevent showing hf when ---
                     if (!isNumericDash(this.qOdds[y][j])) this.qColorInd[y][j] = 0;
                     if (allRefund) buf.append('<span class="wpTdColor"><nobr>---</nobr></span>');
