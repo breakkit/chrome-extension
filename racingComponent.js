@@ -1786,7 +1786,7 @@ function MultiLegTable(rNo) {
                     if (allRefund) buf.append('<span class="wpTdColor"><nobr>---</nobr></span>');
                     else if (this.qOdds[y][j] == 'SCR' || (n1 && s2) || (n2 && s1) || (n1 && sr2) || (n2 && sr1) || (s1 && sr2) || (s2 && sr1) || (s1 && s2) || (sr1 && sr2)) buf.append(scratch2Lbl);
                     else if (r1 || r2) buf.append('-');
-                    else if (this.qOdds[y][j] != null && ranRace < this.raceNo && this.startSell) buf.append('<a class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[y][j])).append(';background-color:').append(getOddsBgColor(this.qColorInd[y][j])).append('" href="javascript:processQuickBet(\'').append(this.selectPool).append('\', \'' + this.raceNo + '\', \'' + y + '-' + j + '\')">' + this.qOdds[y][j] + '</a>')append('</span>').append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>');
+                    else if (this.qOdds[y][j] != null && ranRace < this.raceNo && this.startSell) buf.append('<a class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[y][j])).append(';background-color:').append(getOddsBgColor(this.qColorInd[y][j])).append('" href="javascript:processQuickBet(\'').append(this.selectPool).append('\', \'' + this.raceNo + '\', \'' + y + '-' + j + '\')">' + this.qOdds[y][j] + '</a>');
                     else buf.append('<span class="tdColor" style="color:').append(getOddsFgColor(this.qColorInd[y][j])).append(';background-color:').append(getOddsBgColor(this.qColorInd[y][j])).append('">').append(this.qOdds[y][j]).append('</span>').append('<span style="background-color: red; display: block; height: 5px; width: 20px"></span>');
                 }
                 buf.append('</td>');
