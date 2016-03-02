@@ -860,7 +860,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         }
 
         mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
-        // console.log(mostPossibleCombo);
+        console.log(mostPossibleCombo);
 
         for(var i = 0; i < 5; i++){
             combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
