@@ -854,14 +854,15 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 // console.log(i,j);
                 if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j].horseID || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j].horseID){
                     var ratio = arrQOddsInfo[i].qOdds / (arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds * arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds);
+                    console.log(arrQOddsInfo[i].qOdds + " / " + arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds + " * " + arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds + " || " + arrQOddsInfo[i].coodX + " - " + arrQOddsInfo[i].coodY);
                     mostPossibleCombo.push(new calculatedRatio(ratio, arrQOddsInfo[i].coodX, arrQOddsInfo[i].coodY));
                 }
             }
         }
         var unsorted = mostPossibleCombo.slice();
-        console.log(JSON.stringify(unsorted));
+        // console.log(JSON.stringify(unsorted));
         mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
-        console.log(mostPossibleCombo);
+        // console.log(mostPossibleCombo);
 
         for(var i = 0; i < 5; i++){
             combTable[pool].qColorInd[mostPossibleCombo[i].coodX][mostPossibleCombo[i].coodY] = "4";
