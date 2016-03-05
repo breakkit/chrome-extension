@@ -854,7 +854,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 // console.log(i,j);
                 if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j].horseID || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j].horseID){
                     var ratio = arrQOddsInfo[i].qOdds / (arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds * arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds);
-                    console.log(arrQOddsInfo[i].qOdds + " / " + arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds + " * " + arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds + " || " + arrQOddsInfo[i].coodX + " - " + arrQOddsInfo[i].coodY);
+                    console.log(arrQOddsInfo[i].qOdds + " / " + arrWinOddsInfo[arrQOddsInfo[i].coodX - 1].winOdds + " * " + arrWinOddsInfo[arrQOddsInfo[i].coodY - 1].winOdds + " || " + arrQOddsInfo[i].coodX + " - " + arrQOddsInfo[i].coodY + "||" + j +"-" + i);
                     mostPossibleCombo.push(new calculatedRatio(ratio, arrQOddsInfo[i].coodX, arrQOddsInfo[i].coodY));
                 }
             }
