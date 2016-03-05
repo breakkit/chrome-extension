@@ -1794,7 +1794,7 @@ function MultiLegTable(rNo) {
             }
             buf.append('<td align="center" width="18" class="tdColorNum1" style="border-right:1px solid #dddcdc;border-bottom:1px solid #dddcdc;">').append(y).append('</td>');
             buf.append('</tr>');
-        }console.log(this.qOdds);
+        }
         if (this.qFieldSize > 14) buf.append(this.generateTableQ24());
         buf.append('</table>');
         return buf.toString();
