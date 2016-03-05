@@ -858,7 +858,8 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
                 }
             }
         }
-
+        var unsorted = mostPossibleCombo.slice();
+        console.log(unsorted);
         mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
         console.log(mostPossibleCombo);
 
