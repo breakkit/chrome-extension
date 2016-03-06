@@ -849,7 +849,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
             this.coodY = coodY;
         }
 
-        for(var j = 0; j < 5; j++){
+        for(var j = 0; j < 3; j++){
             for(var i = 0; i < arrQOddsInfo.length; i++){
                 // console.log(i,j);
                 if(arrQOddsInfo[i].coodX == arrWinOddsInfoSorted[j].horseID || arrQOddsInfo[i].coodY == arrWinOddsInfoSorted[j].horseID){
