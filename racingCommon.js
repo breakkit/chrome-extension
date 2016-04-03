@@ -862,6 +862,7 @@ function allCombOddsRefreshQ(pool, tmpOdds) {
         var unsorted = mostPossibleCombo.slice();
         // console.log(JSON.stringify(unsorted));
         mostPossibleCombo.sort(function sort(a,b){return a.ratio - b.ratio});
+        console.clear();
         console.table(mostPossibleCombo);
 
         for(var i = 0; i < 5; i++){
