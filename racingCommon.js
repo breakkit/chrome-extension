@@ -290,7 +290,6 @@ function winOddsRefreshDoc(url, retry) {
             if (str != '') {
                 winOddsByRace = str.split('@@@');
                 _winOddsByRace = winOddsByRace;
-                console.log(_winOddsByRace);
                 refreshWinOdds(winOddsByRace);
                 updateRefreshTime(winOddsByRace[0]);
             }
@@ -965,6 +964,7 @@ function dblRefreshOdds(tmpArrs, wOdds) {
     }
     else {
         updateRefreshTime(tmpArrs[0]);
+        console.log(_winOddsByRace);
         var tmpOdds = tmpArrs[1].split(';');
         for (var j = 1; j < tmpOdds.length; j++) {
             if (tmpOdds[j].indexOf('=') > -1) {// handle odds push error
