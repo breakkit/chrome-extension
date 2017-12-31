@@ -276,7 +276,7 @@ function winOddsLoadDoc(url, mDate, mVenue, data, start, end) {
         dataParam += '&end=' + end;
     winOddsRefreshDoc(url + '?type=jcbwracing_winodds&date=' + mDate + '&venue=' + mVenue + dataParam, 0);
 }   
-     
+var _winOddsByRace;
 function winOddsRefreshDoc(url, retry) {
     if (retry > 2)
         return;
@@ -289,6 +289,8 @@ function winOddsRefreshDoc(url, retry) {
             var str = JXml.GetText(JXml.SelectSingleNode(xml, 'OUT'));
             if (str != '') {
                 winOddsByRace = str.split('@@@');
+                _winOddsByRace = winOddsByRace;
+                console.log(_winOddsByRace);
                 refreshWinOdds(winOddsByRace);
                 updateRefreshTime(winOddsByRace[0]);
             }
@@ -956,7 +958,7 @@ function dblRefreshPush(dblArray) {
     }
 }
 
-function dblRefreshOdds(tmpArrs) {
+function dblRefreshOdds(tmpArrs, wOdds) {
     dblOddsTable.haveOdds = false;
     if (tmpArrs.length < 1) {
         dblOddsTable.clearTable();
