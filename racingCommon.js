@@ -275,6 +275,7 @@ function winOddsLoadDoc(url, mDate, mVenue, data, start, end) {
     if (end != null && end != '')
         dataParam += '&end=' + end;
     winOddsRefreshDoc(url + '?type=jcbwracing_winodds&date=' + mDate + '&venue=' + mVenue + dataParam, 0);
+    dblLoadDocImp();
 }   
 var _winOddsByRace;
 function winOddsRefreshDoc(url, retry) {
