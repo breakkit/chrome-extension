@@ -976,7 +976,7 @@ function dblRefreshOdds(tmpArrs, wOdds) {
             console.log(key);
             console.log("type is " + typeof(key));
         }
-        console.log(_winOddsByRace['1']);
+        console.log(_winOddsByRace[1]);
         for (var j = 1; j < tmpOdds.length; j++) {
             if (tmpOdds[j].indexOf('=') > -1) {// handle odds push error
                 var tmpStr = tmpOdds[j].split('=');
