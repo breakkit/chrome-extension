@@ -983,7 +983,7 @@ function dblRefreshOdds(tmpArrs, wOdds) {
         // }
         var tmpOdds = tmpArrs[1].split(';');
         for (var j = 1; j < tmpOdds.length; j++) {
-            if (tmpOdds[j].indexOf('=') > -1 && tmp_current_race_win_odd[j].indexOf('=') > -1 && tmp_current_race_win_odd[j].indexOf('=') > -1) {// handle odds push error
+            if (tmpOdds[j].indexOf('=') > -1 ) {// handle odds push error
                 var tmpStr = tmpOdds[j].split('=');
                 var tmpSels = tmpStr[0].split('-');
                 var x = parseInt(tmpSels[0], 10);
