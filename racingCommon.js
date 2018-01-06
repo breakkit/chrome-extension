@@ -966,34 +966,18 @@ function dbl_ratio(current_race_horse_number, after_race_horse_number, calculate
 
 function dblRefreshOdds(tmpArrs, wOdds) {
     dblOddsTable.haveOdds = false;
-    sorted_ratio = new Array(arrSize);
     if (tmpArrs.length < 1) {
         dblOddsTable.clearTable();
     }
     else {
         updateRefreshTime(tmpArrs[0]);
-        console.log(_winOddsByRace);
-        var tmp_current_race_win_odd = _winOddsByRace[1].split(';');
-        var tmp_after_race_win_odd = _winOddsByRace[2].split(';');
-        // var current_race_win_odd_arr = [];
-        // var after_race_win_odd_arr = [];
-        // for (let i = 1; i < tmp_current_race_win_odd.length; i++) {
-        //     current_race_win_odd = tmp_current_race_win_odd[j].split('=');
-        //     after_race_win_odd = tmp_after_race_win_odd[j].split('=');
-        // }
         var tmpOdds = tmpArrs[1].split(';');
         for (var j = 1; j < tmpOdds.length; j++) {
-            if (tmpOdds[j].indexOf('=') > -1 ) {// handle odds push error
+            if (tmpOdds[j].indexOf('=') > -1) {// handle odds push error
                 var tmpStr = tmpOdds[j].split('=');
                 var tmpSels = tmpStr[0].split('-');
                 var x = parseInt(tmpSels[0], 10);
                 var y = parseInt(tmpSels[1], 10);
-                // var current_race_win_odd = tmp_current_race_win_odd[x].split('=');
-                // var after_race_win_odd = tmp_after_race_win_odd[y].split('=');
-                // calculated_odd = current_race_win_odd * after_race_win_odd;
-                // two_odd_different_ratio = tmpStr[1] / calculated_odd;
-                // sorted_ratio.push(new dbl_ratio(current_race_win_odd[0], after_race_win_odd[0], calculated_odd, tmpStr[1], two_odd_different_ratio))
-                // console.log(sorted_ratio)
                 dblOddsTable.dblOdds[x][y] = tmpStr[1];
                 dblOddsTable.dblColorInd[x][y] = tmpStr[2];
                 dblOddsTable.haveOdds = true;
