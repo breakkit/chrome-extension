@@ -988,12 +988,12 @@ function dblRefreshOdds(tmpArrs, wOdds) {
                 var tmpSels = tmpStr[0].split('-');
                 var x = parseInt(tmpSels[0], 10);
                 var y = parseInt(tmpSels[1], 10);
-                var current_race_win_odd = tmp_current_race_win_odd[x].split('=');
-                var after_race_win_odd = tmp_after_race_win_odd[y].split('=');
-                calculated_odd = current_race_win_odd * after_race_win_odd;
-                two_odd_different_ratio = tmpStr[1] / calculated_odd;
-                sorted_ratio.push(new dbl_ratio(current_race_win_odd[0], after_race_win_odd[0], calculated_odd, tmpStr[1], two_odd_different_ratio))
-                console.log(sorted_ratio)
+                // var current_race_win_odd = tmp_current_race_win_odd[x].split('=');
+                // var after_race_win_odd = tmp_after_race_win_odd[y].split('=');
+                // calculated_odd = current_race_win_odd * after_race_win_odd;
+                // two_odd_different_ratio = tmpStr[1] / calculated_odd;
+                // sorted_ratio.push(new dbl_ratio(current_race_win_odd[0], after_race_win_odd[0], calculated_odd, tmpStr[1], two_odd_different_ratio))
+                // console.log(sorted_ratio)
                 dblOddsTable.dblOdds[x][y] = tmpStr[1];
                 dblOddsTable.dblColorInd[x][y] = tmpStr[2];
                 dblOddsTable.haveOdds = true;
