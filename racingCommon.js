@@ -973,6 +973,8 @@ function dblRefreshOdds(tmpArrs, wOdds) {
         updateRefreshTime(tmpArrs[0]);
         var tmpOdds = tmpArrs[1].split(';');
         console.log(_winOddsByRace);
+        var tmp_current_race_win_odd = _winOddsByRace[1].split(';');
+        console.log(tmp_current_race_win_odd);
         for (var j = 1; j < tmpOdds.length; j++) {
             if (tmpOdds[j].indexOf('=') > -1) {// handle odds push error
                 var tmpStr = tmpOdds[j].split('=');
