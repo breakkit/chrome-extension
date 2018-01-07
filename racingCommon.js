@@ -995,7 +995,10 @@ function dblRefreshOdds(tmpArrs, wOdds) {
                         let after_race_win_odd = tmp_after_race_win_odd_arr[y].split('=');
                         let calculated_odd = current_race_win_odd[1] * after_race_win_odd[1];
                         let two_odd_different_ratio = tmpStr[1] / calculated_odd;
-                        dbl_ratio_arr.push(new dbl_ratio(current_race_win_odd[0], after_race_win_odd[0], calculated_odd, tmpStr[1], two_odd_different_ratio));
+                        if (calculated_odd < 999) {
+
+                            dbl_ratio_arr.push(new dbl_ratio(current_race_win_odd[0], after_race_win_odd[0], calculated_odd, tmpStr[1], two_odd_different_ratio));
+                        }
                     }
                 }
                 catch(err) {
