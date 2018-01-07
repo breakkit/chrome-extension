@@ -962,7 +962,9 @@ function dblRefreshPush(dblArray) {
 function dbl_ratio(current_race_horse_number, after_race_horse_number, calculated_odd, hkjc_offer_odd, two_odd_different_ratio) {
     this.current_race_horse_number = current_race_horse_number;
     this.after_race_horse_number = after_race_horse_number;
-    this.odd_ratio = two_odd_different_ratio;
+    this.calculated_odd = calculated_odd;
+    this.hkjc_offer_odd = hkjc_offer_odd;
+    this.two_odd_different_ratio = two_odd_different_ratio;
 }
 
 function dblRefreshOdds(tmpArrs, wOdds) {
@@ -993,7 +995,7 @@ function dblRefreshOdds(tmpArrs, wOdds) {
                         let after_race_win_odd = tmp_after_race_win_odd_arr[y].split('=');
                         let calculated_odd = current_race_win_odd[1] * after_race_win_odd[1];
                         let two_odd_different_ratio = tmpStr[1] / calculated_odd;
-                        dbl_ratio_arr.push(new dbl_ratio(current_race_win_odd[0], after_race_win_odd[0], calculated_odd, two_odd_different_ratio));
+                        dbl_ratio_arr.push(new dbl_ratio(current_race_win_odd[0], after_race_win_odd[0], calculated_odd, tmpStr[1], two_odd_different_ratio));
                     }
                 }
                 catch(err) {
