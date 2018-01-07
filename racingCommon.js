@@ -1008,6 +1008,7 @@ function dblRefreshOdds(tmpArrs, wOdds) {
         }
         console.log(dbl_ratio_arr);
         var sorted_dbl_ratio_arr = dbl_ratio_arr.sort(function(a, b) {
+            if (a.calculated_odd > 999) return 1;
             return a.two_odd_different_ratio - b.two_odd_different_ratio;
         })
         console.log(sorted_dbl_ratio_arr);
